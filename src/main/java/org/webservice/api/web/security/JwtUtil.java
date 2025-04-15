@@ -18,7 +18,7 @@ public class JwtUtil {
     private final Log LOGGER = LogFactory.getLog(JwtUtil.class);
     private static final String SECRET_KEY = "*56384abc123";
     private static Algorithm ALGORITHM = Algorithm.HMAC256(SECRET_KEY);
-    private static final long ACCESS_TOKEN_EXPIRATION = 60000; // 15 min 900000 // 3 min 180000 // 1 min 60000
+    private static final long ACCESS_TOKEN_EXPIRATION = 300000; // 15 min 900000 // 3 min 180000 // 5 min 300000 // 1 min 60000
     private static final long REFRESH_TOKEN_EXPIRATION = 1800000; // 30 min
     private static final long RECOVERY_TOKEN_EXPIRATION = 900000; // 15 min
     private static UserDtoService userDtoService;

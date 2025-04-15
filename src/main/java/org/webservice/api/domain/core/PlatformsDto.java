@@ -2,6 +2,7 @@ package org.webservice.api.domain.core;
 
 public class PlatformsDto {
     private Long platformId;
+    private String platformName;
     private String platformDescription;
 
     public Long getPlatformId() {
@@ -10,6 +11,14 @@ public class PlatformsDto {
 
     public void setPlatformId(Long platformId) {
         this.platformId = platformId;
+    }
+
+    public String getPlatformName() {
+        return platformName;
+    }
+
+    public void setPlatformName(String platformName) {
+        this.platformName = platformName;
     }
 
     public String getPlatformDescription() {

@@ -63,9 +63,16 @@ public class SecurityConfig {
                         /////////USER/////////////
                         .requestMatchers(HttpMethod.GET,"/users/**").hasAnyRole("ADMIN")
                         /////////GAMES/////////////
+                        .requestMatchers(HttpMethod.GET,"/games/view").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/games").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.GET,"/games/**").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/game").hasAuthority("update_content")
-
+                        ////////GENRES/////////////
+                        .requestMatchers(HttpMethod.GET,"/genres").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/genre").hasAuthority("update_content")
+                        ////////PLATFORMS//////////
+                        .requestMatchers(HttpMethod.GET,"/platforms").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/platform").hasAuthority("update_content")
 
                         .anyRequest().authenticated()
                 )

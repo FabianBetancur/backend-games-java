@@ -25,4 +25,10 @@ public class GamesControllerGet {
     public ResponseEntity<?> getGames(){
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
+
+    @GetMapping("/games/view")
+    public ResponseEntity<?> getGamesView(){
+        return new ResponseEntity<>(service.findAllView(),HttpStatus.OK);
+    }
+
 }

@@ -26,4 +26,8 @@ public class PlatformRepository implements PlatformsRepositoryDto {
         List<Platforms> platformsList = (List<Platforms>) repository.findAll();
         return Optional.of(mapper.toPlatformsDto(platformsList));
     }
+
+    public PlatformsDto save(PlatformsDto platformsDto){
+        return mapper.toPlatformsDto(repository.save(mapper.toPlatforms(platformsDto)));
+    }
 }

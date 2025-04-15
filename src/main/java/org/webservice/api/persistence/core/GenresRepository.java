@@ -26,4 +26,8 @@ public class GenresRepository implements GenresRepositoryDto {
         List<Genres> genresList = (List<Genres>) repository.findAll();
         return Optional.of(mapper.toGenresDto(genresList));
     }
+
+    public GenresDto save(GenresDto genresDto){
+        return mapper.toGenresDto(repository.save(mapper.toGenres(genresDto)));
+    }
 }

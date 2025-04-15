@@ -7,7 +7,11 @@ import jakarta.persistence.*;
 public class Platforms {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "platform_id")
     private Long platformId;
+
+    @Column(name = "platform_name")
+    private String platformName;
 
     @Column(name = "platform_description")
     private String platformDescription;
@@ -18,6 +22,14 @@ public class Platforms {
 
     public void setPlatformId(Long platformId) {
         this.platformId = platformId;
+    }
+
+    public String getPlatformName() {
+        return platformName;
+    }
+
+    public void setPlatformName(String platformName) {
+        this.platformName = platformName;
     }
 
     public String getPlatformDescription() {

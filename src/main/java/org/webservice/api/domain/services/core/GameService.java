@@ -6,7 +6,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webservice.api.domain.core.GamesDto;
+import org.webservice.api.domain.core.GamesViewDto;
 import org.webservice.api.persistence.core.GamesRepository;
+import org.webservice.api.persistence.core.GamesViewRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,14 +18,20 @@ import java.util.Optional;
 public class GameService {
     private final Log LOGGER = LogFactory.getLog(GameService.class);
     private final GamesRepository repository;
+    private final GamesViewRepository repositoryView;
 
     @Autowired
-    public GameService(GamesRepository repository) {
+    public GameService(GamesRepository repository, GamesViewRepository repositoryView) {
         this.repository = repository;
+        this.repositoryView = repositoryView;
     }
 
     public Optional<List<GamesDto>> findAll(){
         return repository.findAll();
+    }
+
+    public Optional<List<GamesViewDto>> findAllView(){
+        return repositoryView.findAll();
     }
 
     public GamesDto save(GamesDto gamesDto){

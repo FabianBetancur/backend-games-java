@@ -44,7 +44,7 @@ public class GamesControllerPost {
 
             return ResponseEntity.status(HttpStatus.OK)
                     .body(new HashMap<String,String>(){{
-                        put("message","successful product creation");
+                        put("message","successful game creation");
                     }});
 
         } catch (Exception ex){
