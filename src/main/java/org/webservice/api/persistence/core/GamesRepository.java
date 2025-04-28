@@ -28,6 +28,11 @@ public class GamesRepository implements GamesRepositoryDto {
         return Optional.of(mapper.toGamesDto(gamesList));
     }
 
+    @Override
+    public Optional<GamesDto> findById(Long id) {
+        return Optional.of(mapper.toGamesDto(repository.findById(id).get()));
+    }
+
     public GamesDto save(GamesDto gamesDto){
         return mapper.toGamesDto(repository.save(mapper.toGames(gamesDto)));
     }

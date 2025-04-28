@@ -34,7 +34,30 @@ public class GameService {
         return repositoryView.findAll();
     }
 
+    public Optional<GamesDto> findById(Long id){
+        return repository.findById(id);
+    }
+
     public GamesDto save(GamesDto gamesDto){
         return repository.save(gamesDto);
+    }
+
+    public Boolean update(Long id,GamesDto gamesDto){
+        try {
+            repository.findById(id).map(data->{
+               data.setGameTitle(gamesDto.getGameTitle());
+               data.setGameDescription(gamesDto.getGameDescription());
+               data.setGameGenre(gamesDto.getGameGenre());
+               data.setGamePlatform(gamesDto.getGamePlatform());
+               data.setGameDeveloper(gamesDto.getGameDeveloper());
+               data.setGameClassification(gamesDto.getGameClassification());
+               data.setReleaseDate(gamesDto.getReleaseDate());
+               return repository.save(data);
+            });
+            return true;
+        } catch (Exception ex){
+            LOGGER.error(ex.getMessage());
+            return false;
+        }
     }
 }

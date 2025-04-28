@@ -66,13 +66,18 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/games/view").permitAll()
                         .requestMatchers(HttpMethod.GET,"/games").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.GET,"/games/**").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.GET,"/game").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/game").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.PUT,"/game/**").hasAuthority("update_content")
                         ////////GENRES/////////////
                         .requestMatchers(HttpMethod.GET,"/genres").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/genre").hasAuthority("update_content")
                         ////////PLATFORMS//////////
                         .requestMatchers(HttpMethod.GET,"/platforms").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/platform").hasAuthority("update_content")
+                        ///////SHORTURL////////////
+                        .requestMatchers(HttpMethod.GET,"/url/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/shorten").hasAuthority("update_content")
 
                         .anyRequest().authenticated()
                 )

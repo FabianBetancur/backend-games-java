@@ -5,10 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.webservice.api.domain.core.GamesDto;
 import org.webservice.api.domain.services.core.GameService;
 
@@ -47,6 +44,28 @@ public class GamesControllerPost {
                         put("message","successful game creation");
                     }});
 
+        } catch (Exception ex){
+            LOGGER.error(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new HashMap<String,String>(){{
+                        put("message",ex.getMessage());
+                    }});
+        }
+    }
+
+    @PutMapping("/game/{id}")
+    public ResponseEntity<?> updateGame(@PathVariable Long id,@RequestBody GamesDto request){
+        try {
+            if(service.update(id,request)){
+                return ResponseEntity.status(HttpStatus.OK)
+                        .body(new HashMap<String,String>(){{
+                            put("message","successful data update");
+                        }});
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new HashMap<String,String>(){{
+                        put("message","unexpected error");
+                    }});
         } catch (Exception ex){
             LOGGER.error(ex.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
