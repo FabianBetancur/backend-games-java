@@ -15,18 +15,14 @@ import java.util.Optional;
 @Transactional
 public class PlatformService {
     private final Log LOGGER = LogFactory.getLog(PlatformService.class);
-    private final PlatformRepository repository;
-
     @Autowired
-    public PlatformService(PlatformRepository repository) {
-        this.repository = repository;
-    }
+    private PlatformRepository repository;
 
     public Optional<List<PlatformsDto>> findAll(){
         return repository.findAll();
     }
 
     public PlatformsDto save(PlatformsDto platformsDto){
-        return repository.save(platformsDto);
+        return repository.save(platformsDto).get();
     }
 }

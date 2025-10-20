@@ -1,6 +1,8 @@
 package org.webservice.api.persistence.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.webservice.api.domain.core.GamesViewDto;
 import org.webservice.api.domain.repository.core.GamesViewRepositoryDto;
@@ -13,18 +15,28 @@ import java.util.Optional;
 
 @Repository
 public class GamesViewRepository implements GamesViewRepositoryDto {
-    private final GamesViewCrudRepository repository;
-    private final GamesViewMapper mapper;
-
     @Autowired
-    public GamesViewRepository(GamesViewCrudRepository repository, GamesViewMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
+    private GamesViewCrudRepository repository;
+    @Autowired
+    private GamesViewMapper mapper;
 
     @Override
     public Optional<List<GamesViewDto>> findAll() {
-        List<GamesView> gamesViewList = (List<GamesView>) repository.findAll();
-        return Optional.of(mapper.toGamesViewDto(gamesViewList));
+        return Optional.of((List<GamesView>) repository.findAll()).map(mapper::toGamesViewDto);
+    }
+
+    @Override
+    public Optional<List<GamesViewDto>> findWithoutInventory() {
+        return repository.findWithoutInventory().map(mapper::toGamesViewDto);
+    }
+
+    @Override
+    public Optional<Page<GamesViewDto>> paginatedList(Pageable pageable) {
+        return Optional.of(repository.findAll(pageable).map(mapper::toGamesViewDto));
+    }
+
+    @Override
+    public Optional<Page<GamesViewDto>> searchGames(String value, Pageable pageable) {
+        return Optional.of(repository.searchGames(value, pageable).map(mapper::toGamesViewDto));
     }
 }

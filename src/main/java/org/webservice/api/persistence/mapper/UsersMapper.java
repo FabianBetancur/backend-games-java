@@ -7,7 +7,7 @@ import org.webservice.api.persistence.entity.Users;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {RolesMapper.class})
 public interface UsersMapper {
     UsersDto toUsersDto(Users users);
     List<UsersDto> toUsersDto(List<Users> users);

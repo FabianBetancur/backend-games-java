@@ -1,7 +1,5 @@
 package org.webservice.api.domain;
 
-import org.webservice.api.persistence.entity.Roles;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,7 +11,7 @@ public class UsersDto {
     private boolean userLocked;
     private boolean userDisabled;
     private LocalDateTime userCreated;
-    private List<Roles> roles;
+    private List<RolesDto> roles;
 
     public Long getUserId() {
         return userId;
@@ -71,11 +69,11 @@ public class UsersDto {
         this.userCreated = userCreated;
     }
 
-    public List<Roles> getRoles() {
+    public List<RolesDto> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Roles> roles) {
+    public void setRoles(List<RolesDto> roles) {
         this.roles = roles;
     }
 }

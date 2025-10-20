@@ -1,5 +1,11 @@
 package org.webservice.api.web.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +27,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Optional;
 
+@Tag(name = "01 - Controlador autenticacion")
 @RestController
 @RequestMapping("/auth")
 public class AuthControllerPost {
@@ -38,6 +45,11 @@ public class AuthControllerPost {
         this.jwtUtil = jwtUtil;
     }
 
+    @Operation(summary = "crea el usuario en la base de datos", description = "crea nuevo registro en la base de datos en la tabla de usuarios")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "usuario creado correctamente"),
+            @ApiResponse(responseCode = "500",description = "error interno del servidor")
+    })
     @PostMapping("/register")
     public ResponseEntity<?> RegisterUser(@RequestBody UserRegistrationRequest request){
         try {
@@ -92,6 +104,11 @@ public class AuthControllerPost {
         }
     }
 
+    @Operation(summary = "ingreso protegido de usuarios al sistema", description = "correo y contraseña son necesarios para la autenticacion")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "autenticacion correcta"),
+            @ApiResponse(responseCode = "500",description = "error interno del servidor")
+    })
     @PostMapping("/login")
     public ResponseEntity<?> LoginUser (@RequestBody AuthRequest request){
         try {
@@ -113,6 +130,11 @@ public class AuthControllerPost {
         }
     }
 
+    @Operation(summary = "Refresca el token de la sesion", description = "metodo que devuelve un token actualizado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Token actualizado correctamente"),
+            @ApiResponse(responseCode = "500",description = "error interno del servidor")
+    })
     @PostMapping("/refresh-token")
     public ResponseEntity<?> getRefreshToken(@RequestBody RefreshTokenRequest request){
         try {
@@ -130,6 +152,11 @@ public class AuthControllerPost {
         }
     }
 
+    @Operation(summary = "Validar nombre de usuario en el sistema", description = "devuelve un registro si este existe en la base de datos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "registro obtenido correctamente"),
+            @ApiResponse(responseCode = "500",description = "error interno del servidor")
+    })
     @PostMapping("/available/{email}")
     public ResponseEntity<?> isAvailable(@PathVariable("email") String email){
         Optional<UsersDto> user  = userDtoService.getByEmail(email);

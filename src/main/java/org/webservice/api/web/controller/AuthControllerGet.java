@@ -1,5 +1,11 @@
 package org.webservice.api.web.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +24,7 @@ import org.webservice.api.web.security.JwtUtil;
 import java.util.HashMap;
 import java.util.Optional;
 
+@Tag(name = "01 - Controlador autenticacion")
 @RestController
 @RequestMapping("/auth")
 public class AuthControllerGet {
@@ -35,7 +42,15 @@ public class AuthControllerGet {
         this.jwtUtil = jwtUtil;
     }
 
+    @Operation(summary = "Obtiene la informacion del usuario", description = "obtiene un usuario a traves del token JWT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Usuario obtenido correctamente",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UsersDto.class))),
+            @ApiResponse(responseCode = "500",description = "error interno del servidor")
+    })
     @GetMapping("/profile")
+    //@SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<?> getProfile(@RequestHeader("Authorization")String token){
         try {
             Optional<UsersDto> user = userDtoService.findByUserId(Long.parseLong(jwtUtil.extractId(token.substring(7))));

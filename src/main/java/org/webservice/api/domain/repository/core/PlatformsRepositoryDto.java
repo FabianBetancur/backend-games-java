@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface PlatformsRepositoryDto {
     Optional<List<PlatformsDto>> findAll();
+    Optional<PlatformsDto> save(PlatformsDto dto);
 }

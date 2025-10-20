@@ -57,6 +57,7 @@ public class SecurityConfig {
                         /////////TEST/////////////
                         .requestMatchers(HttpMethod.POST,"/test/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/test/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         /////////AUTH/////////////
                         .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/auth/profile").hasAuthority("update_content")
@@ -64,9 +65,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/users/**").hasAnyRole("ADMIN")
                         /////////GAMES/////////////
                         .requestMatchers(HttpMethod.GET,"/games/view").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/games").hasAuthority("update_content")
-                        .requestMatchers(HttpMethod.GET,"/games/**").hasAuthority("update_content")
-                        .requestMatchers(HttpMethod.GET,"/game").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.GET,"/game/**","/games","/games/**").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/game").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.PUT,"/game/**").hasAuthority("update_content")
                         ////////GENRES/////////////
@@ -75,9 +74,24 @@ public class SecurityConfig {
                         ////////PLATFORMS//////////
                         .requestMatchers(HttpMethod.GET,"/platforms").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/platform").hasAuthority("update_content")
-                        ///////SHORTURL////////////
+                        ////////INVENTORY//////////
+                        .requestMatchers(HttpMethod.GET,"/inventory").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/inventory").hasAuthority("update_content")
+                        ///////SHORT_URL///////////
                         .requestMatchers(HttpMethod.GET,"/url/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/shorten").hasAuthority("update_content")
+                        //////SHOPPING_CART////////
+                        .requestMatchers(HttpMethod.GET,"/cart/**").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/cart").hasAuthority("update_content")
+                        ////////CART_ITEMS/////////
+                        .requestMatchers(HttpMethod.GET,"/cart-items/**").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/cart-items").hasAuthority("update_content")
+                        ///PAYMENT_TRANSACTIONS////
+                        .requestMatchers(HttpMethod.GET,"/transaction/**").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/transaction").hasAuthority("update_content")
+                        /////////ORDERS////////////
+                        .requestMatchers(HttpMethod.GET,"/order/**").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/order").hasAuthority("update_content")
 
                         .anyRequest().authenticated()
                 )

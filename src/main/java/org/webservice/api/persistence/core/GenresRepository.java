@@ -12,22 +12,19 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public class GenresRepository implements GenresRepositoryDto {
-    private final GenresCrudRepository repository;
-    private final GenresMapper mapper;
-
     @Autowired
-    public GenresRepository(GenresCrudRepository repository, GenresMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
+    private GenresCrudRepository repository;
+    @Autowired
+    private GenresMapper mapper;
 
     @Override
     public Optional<List<GenresDto>> findAll() {
         List<Genres> genresList = (List<Genres>) repository.findAll();
-        return Optional.of(mapper.toGenresDto(genresList));
+        return Optional.of((List<Genres>) repository.findAll()).map(mapper::toGenresDto);
     }
 
-    public GenresDto save(GenresDto genresDto){
-        return mapper.toGenresDto(repository.save(mapper.toGenres(genresDto)));
+    @Override
+    public Optional<GenresDto> save(GenresDto dto) {
+        return Optional.of(repository.save(mapper.toGenres(dto))).map(mapper::toGenresDto);
     }
 }

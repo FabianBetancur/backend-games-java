@@ -13,27 +13,23 @@ import java.util.Optional;
 
 @Repository
 public class GamesRepository implements GamesRepositoryDto {
-    private final GamesCrudRepository repository;
-    private final GamesMapper mapper;
-
     @Autowired
-    public GamesRepository(GamesCrudRepository repository, GamesMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
+    private GamesCrudRepository repository;
+    @Autowired
+    private GamesMapper mapper;
 
     @Override
     public Optional<List<GamesDto>> findAll() {
-        List<Games> gamesList = (List<Games>) repository.findAll();
-        return Optional.of(mapper.toGamesDto(gamesList));
+        return Optional.of((List<Games>) repository.findAll()).map(mapper::toGamesDto);
     }
 
     @Override
     public Optional<GamesDto> findById(Long id) {
-        return Optional.of(mapper.toGamesDto(repository.findById(id).get()));
+        return repository.findById(id).map(mapper::toGamesDto);
     }
 
-    public GamesDto save(GamesDto gamesDto){
-        return mapper.toGamesDto(repository.save(mapper.toGames(gamesDto)));
+    @Override
+    public Optional<GamesDto> save(GamesDto dto) {
+        return Optional.of(repository.save(mapper.toGames(dto))).map(mapper::toGamesDto);
     }
 }

@@ -1,5 +1,9 @@
 package org.webservice.api.web.controller.core.post;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.webservice.api.domain.services.core.GenreService;
 
 import java.util.HashMap;
 
+@Tag(name = "04 - Controlador generos")
 @RestController
 @RequestMapping("/")
 public class GenresControllerPost {
@@ -22,6 +27,11 @@ public class GenresControllerPost {
         this.service = service;
     }
 
+    @Operation(summary = "Guarda el registro de genero del juego", description = "guarda el genero en la base de datos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "guardado correctamente"),
+            @ApiResponse(responseCode = "500",description = "error interno del servidor")
+    })
     @PostMapping("/genre")
     public ResponseEntity<?> saveGenre(@RequestBody GenresDto request){
         try {

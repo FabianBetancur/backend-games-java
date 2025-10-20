@@ -11,6 +11,7 @@ public class GamesViewDto {
     private String developer;
     private String classification;
     private Date releaseDate;
+    private Integer price;
 
     public Long getId() {
         return id;
@@ -74,5 +75,13 @@ public class GamesViewDto {
 
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }

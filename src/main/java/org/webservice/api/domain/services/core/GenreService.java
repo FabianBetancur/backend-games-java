@@ -27,6 +27,6 @@ public class GenreService {
     }
 
     public GenresDto save(GenresDto genresDto){
-        return repository.save(genresDto);
+        return repository.save(genresDto).get();
     }
 }

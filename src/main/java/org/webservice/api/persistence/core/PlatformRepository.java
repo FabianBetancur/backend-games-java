@@ -12,22 +12,20 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public class PlatformRepository implements PlatformsRepositoryDto {
-    private final PlatformsCrudRepository repository;
-    private final PlatformsMapper mapper;
-
     @Autowired
-    public PlatformRepository(PlatformsCrudRepository repository, PlatformsMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
+    private PlatformsCrudRepository repository;
+    @Autowired
+    private PlatformsMapper mapper;
 
     @Override
     public Optional<List<PlatformsDto>> findAll() {
-        List<Platforms> platformsList = (List<Platforms>) repository.findAll();
-        return Optional.of(mapper.toPlatformsDto(platformsList));
+        return Optional.of((List<Platforms>) repository.findAll()).map(mapper::toPlatformsDto);
     }
 
-    public PlatformsDto save(PlatformsDto platformsDto){
-        return mapper.toPlatformsDto(repository.save(mapper.toPlatforms(platformsDto)));
+    @Override
+    public Optional<PlatformsDto> save(PlatformsDto dto) {
+        return Optional.of(repository.save(mapper.toPlatforms(dto))).map(mapper::toPlatformsDto);
     }
+
+
 }

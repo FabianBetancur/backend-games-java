@@ -1,5 +1,9 @@
 package org.webservice.api.web.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+@Tag(name = "02 - Controlador usuarios")
 @RestController
 @RequestMapping("/")
 public class UsersControllerGet {
@@ -27,21 +32,28 @@ public class UsersControllerGet {
         this.userDtoService = userDtoService;
     }
 
+    @Operation(summary = "obtiene todos los registro de usuarios del sistema", description = "Lista completa de usuarios")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Lista obtenida correctamente"),
+            @ApiResponse(responseCode = "500",description = "error interno del servidor")
+    })
     @GetMapping("/users")
     public ResponseEntity<Optional<List<UsersDto>>> getUsers(){
         return new ResponseEntity<>(userDtoService.findAll(), HttpStatus.OK);
     }
 
+    @Operation(summary = "Obtiene un registro por medio de un id", description = "obtiene un elemento de la base de datos ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "objeto obtenido correctamente"),
+            @ApiResponse(responseCode = "500",description = "error interno del servidor")
+    })
     @GetMapping("/users/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable("id") long id){
-        if(!userDtoService.findByUserId(id).isEmpty()){
-            LOGGER.info("results obtained");
-            return new ResponseEntity<>(userDtoService.findByUserId(id).get(),HttpStatus.OK);
-        }
-        LOGGER.error("results not obtained");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new HashMap<String,String>(){{
-                    put("message","results not obtained");
-                }});
+    public ResponseEntity<UsersDto> getUserById(@PathVariable("id") long id){
+       return userDtoService.findByUserId(id)
+               .map( user ->{
+                   LOGGER.info("results obtained");
+                   return new ResponseEntity<>(user,HttpStatus.OK);
+                       })
+               .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

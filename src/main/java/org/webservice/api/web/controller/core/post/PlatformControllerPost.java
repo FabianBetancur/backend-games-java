@@ -1,5 +1,9 @@
 package org.webservice.api.web.controller.core.post;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.webservice.api.domain.services.core.PlatformService;
 
 import java.util.HashMap;
 
+@Tag(name = "05 - Controlador plataformas")
 @RestController
 @RequestMapping("/")
 public class PlatformControllerPost {
@@ -22,6 +27,11 @@ public class PlatformControllerPost {
         this.service = service;
     }
 
+    @Operation(summary = "Guarda el registro de plataforma del juego", description = "Lista completa de elementos disponibles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Lista obtenida correctamente"),
+            @ApiResponse(responseCode = "500",description = "error interno del servidor")
+    })
     @PostMapping("/platform")
     public ResponseEntity<?> savePlatform(@RequestBody PlatformsDto request) {
         try {

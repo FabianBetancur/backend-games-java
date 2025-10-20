@@ -18,6 +18,7 @@ public class GamesView {
     private String platform;
     private String developer;
     private String classification;
+    private Integer price;
 
     @Column(name = "release_date")
     private Date releaseDate;
@@ -84,5 +85,13 @@ public class GamesView {
 
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }

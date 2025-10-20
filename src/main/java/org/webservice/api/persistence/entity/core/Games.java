@@ -33,6 +33,9 @@ public class Games {
     @Column(name = "game_release_date")
     private Date releaseDate;
 
+    @Column(name = "game_price")
+    private Integer price;
+
     @ManyToOne
     @JoinColumn(name = "game_genre",insertable = false,updatable = false)
     private Genres genre;
@@ -119,5 +122,13 @@ public class Games {
 
     public void setPlatform(Platforms platform) {
         this.platform = platform;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }

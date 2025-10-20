@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface GamesRepositoryDto {
     Optional<List<GamesDto>> findAll();
     Optional<GamesDto> findById(Long id);
+    Optional<GamesDto> save(GamesDto dto);
 }

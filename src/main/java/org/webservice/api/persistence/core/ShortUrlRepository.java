@@ -24,7 +24,7 @@ public class ShortUrlRepository implements ShortUrlRepositoryDto {
     }
 
     @Override
-    public ShortUrlDto save(ShortUrlDto dto) {
-        return mapper.toShortUrlDto(repository.save(mapper.toShortUrl(dto)));
+    public Optional<ShortUrlDto> save(ShortUrlDto dto) {
+        return Optional.of(repository.save(mapper.toShortUrl(dto))).map(mapper::toShortUrlDto);
     }
 }

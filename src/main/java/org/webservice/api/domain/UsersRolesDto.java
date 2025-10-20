@@ -7,6 +7,8 @@ public class UsersRolesDto {
     private Long userId;
     private Long roleId;
     private LocalDateTime grantedDate;
+    private UsersDto user;
+    private RolesDto role;
 
     public Long getId() {
         return id;
@@ -38,5 +40,21 @@ public class UsersRolesDto {
 
     public void setGrantedDate(LocalDateTime grantedDate) {
         this.grantedDate = grantedDate;
+    }
+
+    public UsersDto getUser() {
+        return user;
+    }
+
+    public void setUser(UsersDto user) {
+        this.user = user;
+    }
+
+    public RolesDto getRole() {
+        return role;
+    }
+
+    public void setRole(RolesDto role) {
+        this.role = role;
     }
 }

@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface ShortUrlRepositoryDto {
     Optional<ShortUrlDto> findByShortCode(String code);
-    ShortUrlDto save(ShortUrlDto dto);
+    Optional<ShortUrlDto> save(ShortUrlDto dto);
 }

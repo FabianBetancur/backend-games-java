@@ -4,6 +4,9 @@ import jakarta.transaction.Transactional;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.webservice.api.domain.core.GamesDto;
 import org.webservice.api.domain.core.GamesViewDto;
@@ -17,14 +20,10 @@ import java.util.Optional;
 @Transactional
 public class GameService {
     private final Log LOGGER = LogFactory.getLog(GameService.class);
-    private final GamesRepository repository;
-    private final GamesViewRepository repositoryView;
-
     @Autowired
-    public GameService(GamesRepository repository, GamesViewRepository repositoryView) {
-        this.repository = repository;
-        this.repositoryView = repositoryView;
-    }
+    private GamesRepository repository;
+    @Autowired
+    private GamesViewRepository repositoryView;
 
     public Optional<List<GamesDto>> findAll(){
         return repository.findAll();
@@ -34,12 +33,24 @@ public class GameService {
         return repositoryView.findAll();
     }
 
+    public Optional<List<GamesViewDto>> findWithoutInventory(){return repositoryView.findWithoutInventory();}
+
+    public Optional<Page<GamesViewDto>> paginatedList(int page, int size){
+        Pageable pageable = PageRequest.of(page,size);
+        return repositoryView.paginatedList(pageable);
+    }
+
+    public Optional<Page<GamesViewDto>> searchGames(int page, int size,String value){
+        Pageable pageable = PageRequest.of(page,size);
+        return repositoryView.searchGames(value,pageable);
+    }
+
     public Optional<GamesDto> findById(Long id){
         return repository.findById(id);
     }
 
     public GamesDto save(GamesDto gamesDto){
-        return repository.save(gamesDto);
+        return repository.save(gamesDto).get();
     }
 
     public Boolean update(Long id,GamesDto gamesDto){
@@ -52,6 +63,7 @@ public class GameService {
                data.setGameDeveloper(gamesDto.getGameDeveloper());
                data.setGameClassification(gamesDto.getGameClassification());
                data.setReleaseDate(gamesDto.getReleaseDate());
+               data.setPrice(gamesDto.getPrice());
                return repository.save(data);
             });
             return true;

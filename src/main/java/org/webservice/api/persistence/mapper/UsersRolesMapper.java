@@ -10,15 +10,11 @@ import org.webservice.api.persistence.entity.UsersRoles;
 import java.util.List;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {UsersMapper.class, RolesMapper.class})
 public interface UsersRolesMapper {
     UsersRolesDto toUsersRolesDto(UsersRoles usersRoles);
     List<UsersRolesDto> toUsersRolesDto(List<UsersRoles> usersRoles);
 
     @InheritInverseConfiguration
-    @Mappings({
-            @Mapping(target = "user",ignore = true),
-            @Mapping(target = "role",ignore = true)
-    })
     UsersRoles toUsersRoles (UsersRolesDto rolesDto);
 }

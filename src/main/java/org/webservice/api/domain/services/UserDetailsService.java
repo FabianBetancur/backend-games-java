@@ -9,9 +9,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.webservice.api.domain.RolesDto;
 import org.webservice.api.domain.UsersDto;
 import org.webservice.api.persistence.UsersRepository;
-import org.webservice.api.persistence.entity.Roles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class UserDetailsService implements org.springframework.security.core.use
         UsersDto user = usersRepository.findByUserEmail(userEmail)
                 .orElseThrow(()-> new UsernameNotFoundException("email:" + userEmail + "not found!"));
 
-        String[] roles = user.getRoles().stream().map(Roles::getRoleDesc).toArray(String[]::new);
+        String[] roles = user.getRoles().stream().map(RolesDto::getRoleDesc).toArray(String[]::new);
 
         return User.builder()
                 .username(user.getUserEmail())
