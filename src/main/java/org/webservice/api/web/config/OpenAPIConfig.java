@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
         info = @Info(
                 title = "Ecommerce API Rest con JWT",
                 version = "0.0.1",
-                description = "Documentación con autenticación JWT"),
+                description = "Documentación de API con autenticación JWT"),
         security = @SecurityRequirement(name = "bearerAuth")
 )
 @SecurityScheme(

@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.webservice.api.domain.services.UserDtoService;
 import io.jsonwebtoken.Claims;
@@ -16,14 +17,25 @@ import java.util.Date;
 @Component
 public class JwtUtil {
     private final Log LOGGER = LogFactory.getLog(JwtUtil.class);
-    private static final String SECRET_KEY = "*56384abc123";
-    private static Algorithm ALGORITHM = Algorithm.HMAC256(SECRET_KEY);
-    private static final long ACCESS_TOKEN_EXPIRATION = 300000; // 15 min 900000 // 3 min 180000 // 5 min 300000 // 1 min 60000
-    private static final long REFRESH_TOKEN_EXPIRATION = 1800000; // 30 min
-    private static final long RECOVERY_TOKEN_EXPIRATION = 900000; // 15 min
+    private final String SECRET_KEY;
+    private final Algorithm ALGORITHM;
+    private final long ACCESS_TOKEN_EXPIRATION; // 300000 // 5 min
+    private final long REFRESH_TOKEN_EXPIRATION; // 1800000; // 30 min
+    private final long RECOVERY_TOKEN_EXPIRATION; // 900000; // 15 min
     private static UserDtoService userDtoService;
 
-    public JwtUtil(UserDtoService userDtoService) {
+    public JwtUtil(
+            @Value("${jwt.secret}") String SECRET_KEY,
+            @Value("${jwt.access-expiration}") long ACCESS_TOKEN_EXPIRATION,
+            @Value("${jwt.refresh-expiration}") long REFRESH_TOKEN_EXPIRATION,
+            @Value("${jwt.recovery-expiration}") long RECOVERY_TOKEN_EXPIRATION,
+            UserDtoService userDtoService)
+    {
+        this.SECRET_KEY = SECRET_KEY;
+        this.ALGORITHM = Algorithm.HMAC256(SECRET_KEY);
+        this.ACCESS_TOKEN_EXPIRATION = ACCESS_TOKEN_EXPIRATION;
+        this.REFRESH_TOKEN_EXPIRATION = REFRESH_TOKEN_EXPIRATION;
+        this.RECOVERY_TOKEN_EXPIRATION = RECOVERY_TOKEN_EXPIRATION;
         this.userDtoService = userDtoService;
     }
 
