@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,10 @@ import java.util.HashMap;
 @Tag(name = "09 - Controlador transacciones")
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class PaymentTransactionsControllerPost {
     private final Log LOGGER = LogFactory.getLog(PaymentTransactionsControllerPost.class);
     private final PaymentTransactionService service;
-
-    @Autowired
-    public PaymentTransactionsControllerPost(PaymentTransactionService service) {
-        this.service = service;
-    }
 
     @Operation(summary = "Registrar la transaccion", description = "crea un registro nuevo en la base de datos")
     @ApiResponses(value = {

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,9 @@ import java.util.HashMap;
 @Tag(name = "11 - Controlador acortador de url")
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class ShortUrlControllerPost {
-    @Autowired
-    private ShortUrlService service;
+    private final ShortUrlService service;
 
     @Operation(summary = "Herramienta para acortar enlaces", description = "introducir el enlace para acortar")
     @ApiResponses(value = {

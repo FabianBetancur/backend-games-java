@@ -1,6 +1,7 @@
 package org.webservice.api.domain.services.core;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,10 @@ import java.util.UUID;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ShortUrlService {
     private final Log LOGGER = LogFactory.getLog(ShortUrlService.class);
-    @Autowired
-    private ShortUrlRepository repository;
+    private final ShortUrlRepository repository;
 
     public String shortenUrl(String originalUrl,Long userId){
         String code = generateRandomCode();

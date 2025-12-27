@@ -1,5 +1,6 @@
 package org.webservice.api.persistence.core;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.webservice.api.domain.core.OrdersDto;
@@ -12,11 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class OrdersRepository implements OrdersRepositoryDto {
-    @Autowired
-    private OrdersCrudRepository repository;
-    @Autowired
-    private OrdersMapper mapper;
+    private final OrdersCrudRepository repository;
+    private final OrdersMapper mapper;
 
     @Override
     public Optional<OrdersDto> save(OrdersDto dto){

@@ -1,5 +1,6 @@
 package org.webservice.api.persistence;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.webservice.api.domain.UsersDto;
@@ -12,15 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class UsersRepository implements UsersRepositoryDto {
     private final UsersCrudRepository usersCrudRepository;
     private final UsersMapper mapper ;
-
-    @Autowired
-    public UsersRepository(UsersCrudRepository usersCrudRepository, UsersMapper mapper) {
-        this.usersCrudRepository = usersCrudRepository;
-        this.mapper = mapper;
-    }
 
     @Override
     public Optional<List<UsersDto>> findAll() {

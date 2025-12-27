@@ -1,5 +1,6 @@
 package org.webservice.api.persistence.core;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,11 @@ import org.webservice.api.persistence.mapper.core.ShortUrlMapper;
 
 import java.util.Optional;
 @Repository
+@RequiredArgsConstructor
 public class ShortUrlRepository implements ShortUrlRepositoryDto {
     private final Log LOGGER = LogFactory.getLog(ShortUrlRepository.class);
-    @Autowired
-    private ShortUrlCrudRepository repository;
-    @Autowired
-    private ShortUrlMapper mapper;
+    private final ShortUrlCrudRepository repository;
+    private final ShortUrlMapper mapper;
 
     @Override
     public Optional<ShortUrlDto> findByShortCode(String code) {

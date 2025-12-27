@@ -1,5 +1,6 @@
 package org.webservice.api.persistence;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.webservice.api.domain.RolesDto;
@@ -12,15 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class RolesRepository implements RolesRepositoryDto {
     private final RolesCrudRepository repository;
     private final RolesMapper mapper;
-
-    @Autowired
-    public RolesRepository(RolesCrudRepository repository, RolesMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
 
     @Override
     public Optional<List<RolesDto>> findAll() {

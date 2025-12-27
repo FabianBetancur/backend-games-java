@@ -4,9 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,14 +21,10 @@ import java.util.HashMap;
 @Tag(name = "06 - Controlador inventario")
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class GamesInventoryControllerPost {
     private final Log LOGGER = LogFactory.getLog(GamesInventoryControllerPost.class);
     private final GamesInventoryService service;
-
-    @Autowired
-    public GamesInventoryControllerPost(GamesInventoryService service) {
-        this.service = service;
-    }
 
     @Operation(summary = "Guarda el elemento en el inventario", description = "Guarda el elemento en base de datos")
     @ApiResponses(value = {

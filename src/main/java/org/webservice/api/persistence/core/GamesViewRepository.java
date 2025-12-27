@@ -1,5 +1,6 @@
 package org.webservice.api.persistence.core;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,11 +15,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class GamesViewRepository implements GamesViewRepositoryDto {
-    @Autowired
-    private GamesViewCrudRepository repository;
-    @Autowired
-    private GamesViewMapper mapper;
+    private final GamesViewCrudRepository repository;
+    private final GamesViewMapper mapper;
 
     @Override
     public Optional<List<GamesViewDto>> findAll() {

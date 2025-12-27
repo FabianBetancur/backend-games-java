@@ -30,7 +30,7 @@ public class DotenvEnvironmentPostProcessor implements EnvironmentPostProcessor 
         environment.getPropertySources()
                 .addFirst(new MapPropertySource("dotenv", env));
 
-        // DEBUG opcional
+        // DEBUG
         //System.out.println(">>> dotenv DB_URL = " + env.get("DB_URL"));
         //System.out.println(">>> dotenv DB_USER = " + env.get("DB_USER"));
         //System.out.println(">>> dotenv DB_PASSWORD = " + env.get("DB_PASSWORD"));

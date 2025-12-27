@@ -1,5 +1,6 @@
 package org.webservice.api.persistence.core;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.webservice.api.domain.core.PaymentTransactionsDto;
@@ -12,11 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class PaymentTransactionsRepository implements PaymentTransactionsRepositoryDto {
-    @Autowired
-    private PaymentTransactionsCrudRepository repository;
-    @Autowired
-    private PaymentTransactionsMapper mapper;
+    private final PaymentTransactionsCrudRepository repository;
+    private final PaymentTransactionsMapper mapper;
 
     @Override
     public Optional<PaymentTransactionsDto> save(PaymentTransactionsDto dto) {

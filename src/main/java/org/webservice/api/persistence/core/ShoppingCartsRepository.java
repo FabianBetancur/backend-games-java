@@ -1,5 +1,6 @@
 package org.webservice.api.persistence.core;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.webservice.api.domain.core.ShoppingCartsDto;
@@ -11,11 +12,10 @@ import org.webservice.api.persistence.mapper.core.ShoppingCartsMapper;
 import java.util.List;
 import java.util.Optional;
 @Repository
+@RequiredArgsConstructor
 public class ShoppingCartsRepository implements ShoppingCartsRepositoryDto {
-    @Autowired
-    private ShoppingCartsCrudRepository repository;
-    @Autowired
-    private ShoppingCartsMapper mapper;
+    private final ShoppingCartsCrudRepository repository;
+    private final ShoppingCartsMapper mapper;
 
     @Override
     public Optional<ShoppingCartsDto> findById(Long id) {

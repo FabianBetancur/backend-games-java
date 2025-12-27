@@ -1,14 +1,12 @@
 package org.webservice.api.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -30,20 +28,13 @@ import java.util.Optional;
 @Tag(name = "01 - Controlador autenticacion")
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthControllerPost {
     private final Log LOGGER = LogFactory.getLog(AuthControllerPost.class);
     private final UserService userService;
     private final UserDtoService userDtoService;
     private final UsersRolesService usersRolesService;
     private final JwtUtil jwtUtil;
-
-    @Autowired
-    public AuthControllerPost(UserService userService, UserDtoService userDtoService, UsersRolesService usersRolesService, JwtUtil jwtUtil) {
-        this.userService = userService;
-        this.userDtoService = userDtoService;
-        this.usersRolesService = usersRolesService;
-        this.jwtUtil = jwtUtil;
-    }
 
     @Operation(summary = "crea el usuario en la base de datos", description = "crea nuevo registro en la base de datos en la tabla de usuarios")
     @ApiResponses(value = {
@@ -113,7 +104,9 @@ public class AuthControllerPost {
     public ResponseEntity<?> LoginUser (@RequestBody AuthRequest request){
         try {
             String token = userService.loginUser(request.getEmail(), request.getPassword());
-            UsersDto user =  userDtoService.getByEmail(request.getEmail()).get();
+            UsersDto user =  userDtoService
+                    .getByEmail(request.getEmail())
+                    .orElseThrow(()->new IllegalStateException("An error occurred while retrieving the record."));
             String refreshToken = jwtUtil.generateRefreshToken(user.getUserId());
             LOGGER.info("logged user: " + user.getUserEmail());
             return ResponseEntity.status(HttpStatus.OK)

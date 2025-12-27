@@ -22,7 +22,7 @@ public class JwtUtil {
     private final long ACCESS_TOKEN_EXPIRATION; // 300000 // 5 min
     private final long REFRESH_TOKEN_EXPIRATION; // 1800000; // 30 min
     private final long RECOVERY_TOKEN_EXPIRATION; // 900000; // 15 min
-    private static UserDtoService userDtoService;
+    private final UserDtoService userDtoService;
 
     public JwtUtil(
             @Value("${jwt.secret}") String SECRET_KEY,

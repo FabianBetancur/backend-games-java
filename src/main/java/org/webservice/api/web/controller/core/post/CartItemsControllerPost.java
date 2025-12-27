@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,10 @@ import java.util.HashMap;
 @Tag(name = "09 - Controlador items del carrito")
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class CartItemsControllerPost {
     private final Log LOGGER = LogFactory.getLog(CartItemsControllerPost.class);
     private final CartItemsService service;
-
-    @Autowired
-    public CartItemsControllerPost(CartItemsService service) {
-        this.service = service;
-    }
 
     @Operation(summary = "Resgitra items asociados a un carrito de compra", description = "crea un registro nuevo y lo asocia al carrito")
     @ApiResponses(value = {

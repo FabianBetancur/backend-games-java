@@ -1,5 +1,6 @@
 package org.webservice.api.web.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,19 +21,12 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
     private final UserDetailsService userDetailsService;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtFilterRequest filterRequest;
     private final CorsConfigurationSource corsConfigurationSource;
-
-    @Autowired
-    public SecurityConfig(UserDetailsService userDetailsService,JwtAuthenticationEntryPoint entryPoint,JwtFilterRequest filterRequest,CorsConfigurationSource corsConfigurationSource){
-        this.userDetailsService = userDetailsService;
-        this.jwtAuthenticationEntryPoint = entryPoint;
-        this.filterRequest = filterRequest;
-        this.corsConfigurationSource = corsConfigurationSource;
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -57,7 +51,6 @@ public class SecurityConfig {
                         /////////TEST/////////////
                         .requestMatchers(HttpMethod.POST,"/test/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/test/**").permitAll()
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         /////////AUTH/////////////
                         .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/auth/profile").hasAuthority("update_content")
@@ -92,7 +85,8 @@ public class SecurityConfig {
                         /////////ORDERS////////////
                         .requestMatchers(HttpMethod.GET,"/order/**").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/order").hasAuthority("update_content")
-
+                        ////////SWAGGER UI/////////
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception

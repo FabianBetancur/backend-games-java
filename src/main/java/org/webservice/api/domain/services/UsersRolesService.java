@@ -1,5 +1,6 @@
 package org.webservice.api.domain.services;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webservice.api.domain.UsersRolesDto;
@@ -9,13 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UsersRolesService {
     private final UsersRolesRepository repository;
-
-    @Autowired
-    public UsersRolesService(UsersRolesRepository repository) {
-        this.repository = repository;
-    }
 
     public Optional<List<UsersRolesDto>> findByUserId(long id){
         return repository.findByUserId(id);

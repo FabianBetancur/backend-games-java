@@ -1,9 +1,9 @@
 package org.webservice.api.domain.services.core;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,17 +13,17 @@ import org.webservice.api.domain.core.GamesViewDto;
 import org.webservice.api.persistence.core.GamesRepository;
 import org.webservice.api.persistence.core.GamesViewRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class GameService {
     private final Log LOGGER = LogFactory.getLog(GameService.class);
-    @Autowired
-    private GamesRepository repository;
-    @Autowired
-    private GamesViewRepository repositoryView;
+    private final GamesRepository repository;
+    private final GamesViewRepository repositoryView;
 
     public Optional<List<GamesDto>> findAll(){
         return repository.findAll();
@@ -50,7 +50,7 @@ public class GameService {
     }
 
     public GamesDto save(GamesDto gamesDto){
-        return repository.save(gamesDto).get();
+        return repository.save(gamesDto).orElseThrow(()-> new IllegalStateException("unexpected error"));
     }
 
     public Boolean update(Long id,GamesDto gamesDto){

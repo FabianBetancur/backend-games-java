@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,10 @@ import java.util.Optional;
 @Tag(name = "02 - Controlador usuarios")
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class UsersControllerGet {
     private final Log LOGGER = LogFactory.getLog(UsersControllerGet.class);
     private final UserDtoService userDtoService;
-
-    @Autowired
-    public UsersControllerGet(UserDtoService userDtoService) {
-        this.userDtoService = userDtoService;
-    }
 
     @Operation(summary = "obtiene todos los registro de usuarios del sistema", description = "Lista completa de usuarios")
     @ApiResponses(value = {

@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,20 +28,13 @@ import java.util.Optional;
 @Tag(name = "01 - Controlador autenticacion")
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthControllerGet {
     private final Log LOGGER = LogFactory.getLog(AuthControllerGet.class);
     private final UserService userService;
     private final UserDtoService userDtoService;
     private final UsersRolesService usersRolesService;
     private final JwtUtil jwtUtil;
-
-    @Autowired
-    public AuthControllerGet(UserService userService, UserDtoService userDtoService, UsersRolesService usersRolesService, JwtUtil jwtUtil) {
-        this.userService = userService;
-        this.userDtoService = userDtoService;
-        this.usersRolesService = usersRolesService;
-        this.jwtUtil = jwtUtil;
-    }
 
     @Operation(summary = "Obtiene la informacion del usuario", description = "obtiene un usuario a traves del token JWT")
     @ApiResponses(value = {

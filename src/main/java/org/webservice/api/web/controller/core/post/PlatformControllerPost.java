@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,10 @@ import java.util.HashMap;
 @Tag(name = "05 - Controlador plataformas")
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class PlatformControllerPost {
     private final Log LOGGER = LogFactory.getLog(PlatformControllerPost.class);
     private final PlatformService service;
-
-    @Autowired
-    public PlatformControllerPost(PlatformService service) {
-        this.service = service;
-    }
 
     @Operation(summary = "Guarda el registro de plataforma del juego", description = "Lista completa de elementos disponibles")
     @ApiResponses(value = {

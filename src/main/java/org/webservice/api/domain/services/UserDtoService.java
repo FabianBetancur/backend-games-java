@@ -1,6 +1,7 @@
 package org.webservice.api.domain.services;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,10 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserDtoService {
     private final Log LOGGER = LogFactory.getLog(UserDtoService.class);
     private final UsersRepository userRepository;
-
-    @Autowired
-    public UserDtoService(UsersRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     public Optional<List<UsersDto>> findAll(){
         return userRepository.findAll();

@@ -1,6 +1,6 @@
 package org.webservice.api.persistence.core;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.webservice.api.domain.core.GamesInventoryDto;
 import org.webservice.api.domain.repository.core.GamesInventoryRepositoryDto;
@@ -12,11 +12,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class GamesInventoryRepository implements GamesInventoryRepositoryDto {
-    @Autowired
-    private GamesInventoryCrudRepository repository;
-    @Autowired
-    private GameInventoryMapper mapper;
+    private final GamesInventoryCrudRepository repository;
+    private final GameInventoryMapper mapper;
 
     @Override
     public Optional<List<GamesInventoryDto>> findAll() {

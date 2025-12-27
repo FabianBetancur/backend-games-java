@@ -1,5 +1,6 @@
 package org.webservice.api.persistence.core;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.webservice.api.domain.core.PlatformsDto;
@@ -11,11 +12,10 @@ import org.webservice.api.persistence.mapper.core.PlatformsMapper;
 import java.util.List;
 import java.util.Optional;
 @Repository
+@RequiredArgsConstructor
 public class PlatformRepository implements PlatformsRepositoryDto {
-    @Autowired
-    private PlatformsCrudRepository repository;
-    @Autowired
-    private PlatformsMapper mapper;
+    private final PlatformsCrudRepository repository;
+    private final PlatformsMapper mapper;
 
     @Override
     public Optional<List<PlatformsDto>> findAll() {

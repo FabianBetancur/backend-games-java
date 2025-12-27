@@ -1,5 +1,6 @@
 package org.webservice.api.persistence;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.webservice.api.domain.UsersRolesDto;
@@ -13,15 +14,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class UsersRolesRepository implements UsersRolesRepositoryDto {
     private final UsersRolesCrudRepository repository;
     private final UsersRolesMapper mapper;
-
-    @Autowired
-    public UsersRolesRepository(UsersRolesCrudRepository repository, UsersRolesMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
 
     @Override
     public UsersRolesDto save(UsersRolesDto userRolesDTO) {

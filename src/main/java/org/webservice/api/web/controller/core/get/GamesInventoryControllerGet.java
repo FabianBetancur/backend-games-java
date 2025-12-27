@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,10 @@ import org.webservice.api.domain.services.core.GamesInventoryService;
 @Tag(name = "06 - Controlador inventario")
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class GamesInventoryControllerGet {
     private final Log LOGGER = LogFactory.getLog(GamesInventoryControllerGet.class);
     private final GamesInventoryService service;
-
-    @Autowired
-    public GamesInventoryControllerGet(GamesInventoryService service) {
-        this.service = service;
-    }
 
     @Operation(summary = "Obtiene todos los elementos en el inventario", description = "Lista de elementos en el inventario")
     @ApiResponses(value = {

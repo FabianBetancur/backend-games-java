@@ -1,6 +1,6 @@
 package org.webservice.api.persistence.core;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.webservice.api.domain.core.GamesDto;
 import org.webservice.api.domain.repository.core.GamesRepositoryDto;
@@ -12,11 +12,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class GamesRepository implements GamesRepositoryDto {
-    @Autowired
-    private GamesCrudRepository repository;
-    @Autowired
-    private GamesMapper mapper;
+    private final GamesCrudRepository repository;
+    private final GamesMapper mapper;
 
     @Override
     public Optional<List<GamesDto>> findAll() {

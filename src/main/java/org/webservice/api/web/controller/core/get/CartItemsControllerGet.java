@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,10 @@ import java.util.Optional;
 @Tag(name = "09 - Controlador items del carrito")
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class CartItemsControllerGet {
     private final Log LOGGER = LogFactory.getLog(CartItemsControllerGet.class);
     private final CartItemsService service;
-
-    @Autowired
-    public CartItemsControllerGet(CartItemsService service) {
-        this.service = service;
-    }
 
     @Operation(summary = "Obtiene los items del carrito a traves del id", description = "Obtiene el elemento a traves del id del carrito")
     @ApiResponses(value = {

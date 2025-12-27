@@ -1,6 +1,7 @@
 package org.webservice.api.domain.services.core;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,10 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class GenreService {
     private final Log LOGGER = LogFactory.getLog(GenreService.class);
     private final GenresRepository repository;
-
-    @Autowired
-    public GenreService(GenresRepository repository) {
-        this.repository = repository;
-    }
 
     public Optional<List<GenresDto>> findAll(){
         return repository.findAll();

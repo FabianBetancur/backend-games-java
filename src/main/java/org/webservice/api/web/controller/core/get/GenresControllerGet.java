@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,10 @@ import org.webservice.api.domain.services.core.GenreService;
 @Tag(name = "04 - Controlador generos")
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class GenresControllerGet {
     private final Log LOGGER = LogFactory.getLog(GenresControllerGet.class);
     private final GenreService service;
-
-    @Autowired
-    public GenresControllerGet(GenreService service) {
-        this.service = service;
-    }
 
     @Operation(summary = "Obtiene todos los generos", description = "Lista completa de generos de juegos")
     @ApiResponses(value = {

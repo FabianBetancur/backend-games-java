@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,9 @@ import java.util.Optional;
 @Tag(name = "11 - Controlador acortador de url")
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class ShortUrlControllerGet {
-    @Autowired
-    private ShortUrlService service;
+    private final ShortUrlService service;
 
     @Operation(summary = "Obtiene y retorna la url acortada", description = "retorna url original y la abre en el navegador")
     @ApiResponses(value = {

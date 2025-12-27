@@ -13,9 +13,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
         info = @Info(
-                title = "Ecommerce API Rest con JWT",
+                title = "Backend API Rest (JWT)",
                 version = "0.0.1",
-                description = "Documentación de API con autenticación JWT"),
+                description = "API documentation with JWT authentication"),
         security = @SecurityRequirement(name = "bearerAuth")
 )
 @SecurityScheme(

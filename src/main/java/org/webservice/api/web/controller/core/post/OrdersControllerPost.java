@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,10 @@ import java.util.HashMap;
 @Tag(name = "10 - Controlador ordenes")
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class OrdersControllerPost {
     private final Log LOGGER = LogFactory.getLog(OrdersControllerPost.class);
     private final OrdersService service;
-
-    @Autowired
-    public OrdersControllerPost(OrdersService service) {
-        this.service = service;
-    }
 
     @Operation(summary = "Resgitrar la orden", description = "crea un registro nuevo en la base de datos")
     @ApiResponses(value = {

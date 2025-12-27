@@ -1,6 +1,7 @@
 package org.webservice.api.domain.services;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +14,13 @@ import org.webservice.api.web.security.JwtUtil;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final Log LOGGER = LogFactory.getLog(UserService.class);
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
     private final UserDtoService userDtoService;
-
-    @Autowired
-    public UserService(PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserDtoService userDtoService) {
-        this.passwordEncoder = passwordEncoder;
-        this.authenticationManager = authenticationManager;
-        this.jwtUtil = jwtUtil;
-        this.userDtoService = userDtoService;
-    }
 
     public String loginUser(String userName,String password){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName,password));
