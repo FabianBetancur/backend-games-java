@@ -1,7 +1,6 @@
 package org.webservice.api.persistence.core;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -22,21 +21,25 @@ public class GamesViewRepository implements GamesViewRepositoryDto {
 
     @Override
     public Optional<List<GamesViewDto>> findAll() {
-        return Optional.of((List<GamesView>) repository.findAll()).map(mapper::toGamesViewDto);
+        return Optional.of((List<GamesView>) repository.findAll())
+                .map(mapper::toGamesViewDto);
     }
 
     @Override
     public Optional<List<GamesViewDto>> findWithoutInventory() {
-        return repository.findWithoutInventory().map(mapper::toGamesViewDto);
+        return repository.findWithoutInventory()
+                .map(mapper::toGamesViewDto);
     }
 
     @Override
     public Optional<Page<GamesViewDto>> paginatedList(Pageable pageable) {
-        return Optional.of(repository.findAll(pageable).map(mapper::toGamesViewDto));
+        return Optional.of(repository.findAll(pageable)
+                .map(mapper::toGamesViewDto));
     }
 
     @Override
     public Optional<Page<GamesViewDto>> searchGames(String value, Pageable pageable) {
-        return Optional.of(repository.searchGames(value, pageable).map(mapper::toGamesViewDto));
+        return Optional.of(repository.searchGames(value, pageable)
+                .map(mapper::toGamesViewDto));
     }
 }

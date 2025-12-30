@@ -21,6 +21,7 @@ import org.webservice.api.web.security.JwtAuthenticationEntryPoint;
 import org.webservice.api.web.security.JwtUtil;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 @Component
 @RequiredArgsConstructor
@@ -37,16 +38,25 @@ public class JwtFilterRequest extends OncePerRequestFilter {
         try {
             String token = jwtUtil.resolveToken(request);
             if (token != null && jwtUtil.validateToken(token)) {
-                LOGGER.info("Filter request :: loading by user name...");
-                UserDetails userDetails = userDetailService.loadUserByUsername(userDtoService.findByUserId(Long.parseLong(jwtUtil.extractId(token))).get().getUserEmail());
-                LOGGER.info("Filter request :: user email: " + userDetails.getUsername());
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                LOGGER.info("Filter request :: authentication: " + authentication);
+                String username = jwtUtil.extractData(token);
+                LOGGER.info("JWT valid for user: {" + username + "}");
+                UserDetails userDetails = userDetailService
+                        .loadUserByUsername(userDtoService.getByEmail(username)
+                                .orElseThrow(NoSuchElementException::new).getUserEmail());
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        userDetails.getUsername(),
+                        null,
+                        userDetails.getAuthorities()
+                );
+                authentication.setDetails(
+                        new WebAuthenticationDetailsSource()
+                                .buildDetails(request)
+                );
+                SecurityContextHolder.getContext()
+                        .setAuthentication(authentication);
             }
         } catch (AuthenticationException ex) {
-            LOGGER.error("filter request :: exception: " + ex.getMessage());
+            LOGGER.error("JWT authentication failed," + ex.getMessage());
             SecurityContextHolder.clearContext();
             entryPoint.commence(request, response, ex);
             return;

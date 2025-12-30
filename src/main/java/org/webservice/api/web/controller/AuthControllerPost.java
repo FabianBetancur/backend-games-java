@@ -23,6 +23,7 @@ import org.webservice.api.web.security.JwtUtil;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Tag(name = "01 - Controlador autenticacion")
@@ -131,14 +132,17 @@ public class AuthControllerPost {
     @PostMapping("/refresh-token")
     public ResponseEntity<?> getRefreshToken(@RequestBody RefreshTokenRequest request){
         try {
-                long id = Long.parseLong(jwtUtil.extractId(request.getToken()));
-                String token = jwtUtil.generateToken(id);
-                String refreshToken = jwtUtil.generateRefreshToken(id);
-                return ResponseEntity.status(HttpStatus.OK)
-                        .body(new HashMap<String,String>(){{
-                            put("accessToken",token);
-                            put("refreshToken",refreshToken);
-                        }});
+                //long id = Long.parseLong(jwtUtil.extractId(request.getToken()));
+            long id = userDtoService.getByEmail(jwtUtil.extractData(request.getToken()))
+                    .orElseThrow(NoSuchElementException::new)
+                    .getUserId();
+            String token = jwtUtil.generateToken(id);
+            String refreshToken = jwtUtil.generateRefreshToken(id);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new HashMap<String,String>(){{
+                        put("accessToken",token);
+                        put("refreshToken",refreshToken);
+                    }});
         } catch (Exception ex){
             LOGGER.error(ex.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());

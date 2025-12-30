@@ -20,17 +20,20 @@ public class OrdersRepository implements OrdersRepositoryDto {
 
     @Override
     public Optional<OrdersDto> save(OrdersDto dto){
-        return Optional.of(repository.save(mapper.toEntity(dto))).map(mapper::toDto);
+        return Optional.of(repository.save(mapper.toEntity(dto)))
+                .map(mapper::toDto);
     }
 
     @Override
     public Optional<List<OrdersDto>> findByUserId(Long id) {
-        return repository.findByUserId(id).map(mapper::toDto);
+        return repository.findByUserId(id)
+                .map(mapper::toDto);
     }
 
     @Override
     public Optional<List<OrdersDto>> findAll() {
-        return Optional.of((List<Orders>) repository.findAll()).map(mapper::toDto);
+        return Optional.of((List<Orders>) repository.findAll())
+                .map(mapper::toDto);
     }
 }
 

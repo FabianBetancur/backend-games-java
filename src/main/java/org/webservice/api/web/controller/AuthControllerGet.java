@@ -47,7 +47,7 @@ public class AuthControllerGet {
     //@SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<?> getProfile(@RequestHeader("Authorization")String token){
         try {
-            Optional<UsersDto> user = userDtoService.findByUserId(Long.parseLong(jwtUtil.extractId(token.substring(7))));
+            Optional<UsersDto> user = userDtoService.getByEmail((jwtUtil.extractData(token.substring(7))));
             return ResponseEntity.ok(user);
         } catch (Exception ex){
             return ResponseEntity.status(HttpStatus.NO_CONTENT)

@@ -13,6 +13,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 @Component
 public class JwtUtil {
@@ -86,17 +87,16 @@ public class JwtUtil {
         return null;
     }
 
-    public String extractId(String token){
-        LOGGER.info("extracting user name...");
+    public String extractData(String token){
         String id = JWT.require(ALGORITHM)
                 .build()
                 .verify(token)
                 .getSubject();
-        LOGGER.info("user id: " + id);
-        LOGGER.info("converting id...");
-        String email = userDtoService.findByUserId(Long.parseLong(id)).get().getUserEmail();
-        LOGGER.info("email: "+email);
-        return id;
+        String email = userDtoService.findByUserId(Long.parseLong(id))
+                .orElseThrow(NoSuchElementException::new)
+                .getUserEmail();
+        LOGGER.info("user obtained: " + email);
+        return email;
     }
 
     public boolean isTokenExpired(String token){

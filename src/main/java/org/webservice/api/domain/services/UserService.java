@@ -4,13 +4,14 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.webservice.api.domain.UsersDto;
 import org.webservice.api.web.security.JwtUtil;
+
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -23,9 +24,11 @@ public class UserService {
     private final UserDtoService userDtoService;
 
     public String loginUser(String userName,String password){
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName,password));
-        UsersDto user =  userDtoService.getByEmail(userName).get();
-        return jwtUtil.generateToken(user.getUserId());
+        authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(userName,password));
+        return jwtUtil.generateToken(userDtoService.getByEmail(userName)
+                .orElseThrow(NoSuchElementException::new)
+                .getUserId());
     }
 
     public UsersDto registerUser(UsersDto userDto){
@@ -36,7 +39,7 @@ public class UserService {
 
     public boolean updatePassword(String token,String newPassword){
         LOGGER.info("changing password...");
-        return userDtoService.findByUserId(Long.parseLong(jwtUtil.extractId(token)))
+        return userDtoService.getByEmail((jwtUtil.extractData(token)))
                 .map(user->{
                     String encodedPassword = passwordEncoder.encode(newPassword);
                     user.setUserPassword(encodedPassword);
