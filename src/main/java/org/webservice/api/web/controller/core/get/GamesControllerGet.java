@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.webservice.api.domain.core.GamesDto;
 import org.webservice.api.domain.core.GamesViewDto;
 import org.webservice.api.domain.services.core.GameService;
+import org.webservice.api.web.exceptions.MessageResponse;
 
 import java.util.HashMap;
 
@@ -28,7 +29,10 @@ public class GamesControllerGet {
 
     @Operation(summary = "Obtiene todos los elementos a vender", description = "Lista completa de elementos disponibles")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Lista obtenida correctamente"),
+            @ApiResponse(responseCode = "200",description = "Lista obtenida correctamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = GamesDto.class))),
             @ApiResponse(responseCode = "500",description = "error interno del servidor")
     })
     @GetMapping("/games")
@@ -38,7 +42,10 @@ public class GamesControllerGet {
 
     @Operation(summary = "Obtiene todos los elementos para la vista", description = "Lista completa de elementos")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Lista obtenida correctamente"),
+            @ApiResponse(responseCode = "200",description = "Lista obtenida correctamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = GamesViewDto.class))),
             @ApiResponse(responseCode = "500",description = "error interno del servidor")
     })
     @GetMapping("/games/view")
@@ -48,7 +55,10 @@ public class GamesControllerGet {
 
     @Operation(summary = "Obtiene lista de elementos fuera del inventario", description = "lista de elementos sin un inventario asociado")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Lista obtenida correctamente"),
+            @ApiResponse(responseCode = "200",description = "Lista obtenida correctamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = GamesViewDto.class))),
             @ApiResponse(responseCode = "500",description = "error interno del servidor")
     })
     @GetMapping("/games/without")
@@ -95,7 +105,8 @@ public class GamesControllerGet {
     @Operation(summary = "Obtiene una lista de elementos por busqueda", description = "elementos buscados")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "lista obtenida correctamente",
-                    content = @Content(mediaType = "application/json",
+                    content = @Content(
+                            mediaType = "application/json",
                             schema = @Schema(implementation = GamesViewDto.class))),
             @ApiResponse(responseCode = "500",description = "error interno del servidor")
     })

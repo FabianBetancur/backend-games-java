@@ -17,6 +17,10 @@ repositories {
 	mavenCentral()
 }
 
+configurations.all {
+	exclude group: 'commons-logging', module: 'commons-logging'
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -34,6 +38,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+	implementation 'com.opencsv:opencsv:5.9'
 	runtimeOnly 'org.postgresql:postgresql'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

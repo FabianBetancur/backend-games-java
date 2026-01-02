@@ -85,8 +85,11 @@ public class SecurityConfig {
                         /////////ORDERS////////////
                         .requestMatchers(HttpMethod.GET,"/order/**").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/order").hasAuthority("update_content")
+                        /////////CSV FILES/////////
+                        .requestMatchers(HttpMethod.POST,"/csv/upload").hasAuthority("update_content")
                         ////////SWAGGER UI/////////
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception

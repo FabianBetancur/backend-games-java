@@ -9,16 +9,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.webservice.api.domain.core.CartItemsDto;
 import org.webservice.api.domain.services.core.CartItemsService;
+import org.webservice.api.web.exceptions.MessageResponse;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
 
 @Tag(name = "09 - Controlador items del carrito")
 @RestController
@@ -30,10 +28,16 @@ public class CartItemsControllerGet {
 
     @Operation(summary = "Obtiene los items del carrito a traves del id", description = "Obtiene el elemento a traves del id del carrito")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "elemento obtenido correctamente",
-                    content = @Content(mediaType = "application/json",
+            @ApiResponse(
+                    responseCode = "200",description = "elemento obtenido correctamente",
+                    content = @Content(
+                            mediaType = "application/json",
                             schema = @Schema(implementation = CartItemsDto.class))),
-            @ApiResponse(responseCode = "500",description = "error interno del servidor")
+            @ApiResponse(
+                    responseCode = "500",description = "error interno del servidor",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MessageResponse.class)))
     })
     @GetMapping("/cart-items/{id}")
     public ResponseEntity<?> getByUserId(@PathVariable("id") long id){
@@ -41,7 +45,7 @@ public class CartItemsControllerGet {
             return service.findByCartId(id)
                     .map(cart -> {
                         LOGGER.info("data obtained success");
-                        return new ResponseEntity<>(cart,HttpStatus.OK);
+                        return ResponseEntity.ok(cart);
                     })
                     .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
         } catch (Exception ex){

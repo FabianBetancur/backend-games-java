@@ -28,6 +28,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<MessageResponse> handleJsonParseError(
             HttpMessageNotReadableException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new MessageResponse("invalid JSON format: "));
+                .body(new MessageResponse("invalid JSON format: " + ex));
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<?> handleRunTime(RuntimeException ex){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new MessageResponse(ex.getMessage()));
     }
 }

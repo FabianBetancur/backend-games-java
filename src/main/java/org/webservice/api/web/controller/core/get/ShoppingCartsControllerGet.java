@@ -1,6 +1,8 @@
 package org.webservice.api.web.controller.core.get;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.webservice.api.domain.core.CartItemsDto;
 import org.webservice.api.domain.core.ShoppingCartsDto;
 import org.webservice.api.domain.services.core.ShoppingCartService;
+import org.webservice.api.web.exceptions.MessageResponse;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -30,8 +34,18 @@ public class ShoppingCartsControllerGet {
 
     @Operation(summary = "Obtiene una lista con todos los carritos de compra", description = "Obtiene una lista de elementos")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "lista obtenida correctamente"),
-            @ApiResponse(responseCode = "500",description = "error interno del servidor")
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "lista obtenida correctamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ShoppingCartsDto.class))),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "error interno del servidor",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MessageResponse.class)))
     })
     @GetMapping("/cart")
     public ResponseEntity<?> findAll(){
@@ -40,8 +54,18 @@ public class ShoppingCartsControllerGet {
 
     @Operation(summary = "Obtiene carrito de compra por medio de su id", description = "Obtiene elementos por medio de un id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "elemento obtenido correctamente"),
-            @ApiResponse(responseCode = "500",description = "error interno del servidor")
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "elemento obtenido correctamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ShoppingCartsDto.class))),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "error interno del servidor",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MessageResponse.class)))
     })
     @GetMapping("/cart/{id}")
     public ResponseEntity<?> getCartById(@PathVariable("id")Long id){
