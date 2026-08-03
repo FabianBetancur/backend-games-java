@@ -2,7 +2,6 @@ package org.webservice.api.persistence.entity.core;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicInsert;
-import org.webservice.api.persistence.entity.Users;
 
 import java.time.LocalDateTime;
 

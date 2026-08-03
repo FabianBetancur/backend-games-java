@@ -1,15 +1,17 @@
 package org.webservice.api.web.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
+import org.webservice.api.web.controller.AuthControllerGet;
 
 import java.util.Map;
 
 public class DotenvEnvironmentPostProcessor implements EnvironmentPostProcessor {
-
     @Override
     public void postProcessEnvironment(
             ConfigurableEnvironment environment,
@@ -29,11 +31,18 @@ public class DotenvEnvironmentPostProcessor implements EnvironmentPostProcessor 
 
         environment.getPropertySources()
                 .addFirst(new MapPropertySource("dotenv", env));
-
-        // DEBUG
-        //System.out.println(">>> dotenv DB_URL = " + env.get("DB_URL"));
-        //System.out.println(">>> dotenv DB_USER = " + env.get("DB_USER"));
-        //System.out.println(">>> dotenv DB_PASSWORD = " + env.get("DB_PASSWORD"));
-        //System.out.println(">>> user.dir = " + System.getProperty("user.dir"));
     }
 }
+
+// DEBUG
+/*
+        System.out.println(">>> dotenv DB_URL = " + env.get("DB_URL"));
+        System.out.println(">>> dotenv DB_USER = " + env.get("DB_USER"));
+        System.out.println(">>> dotenv DB_PASSWORD = " + env.get("DB_PASSWORD"));
+        System.out.println("###########################################");
+        System.out.println(">>> dotenv DB_URL = " + env.get("DB2_URL"));
+        System.out.println(">>> dotenv DB_USER = " + env.get("DB2_USER"));
+        System.out.println(">>> dotenv DB_PASSWORD = " + env.get("DB2_PASSWORD"));
+        System.out.println(">>> user.dir = " + System.getProperty("user.dir"));
+
+ */

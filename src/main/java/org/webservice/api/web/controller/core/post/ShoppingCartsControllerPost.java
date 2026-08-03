@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.webservice.api.domain.core.ShoppingCartsDto;
 import org.webservice.api.domain.services.core.ShoppingCartService;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 @Tag(name = "07 - Controlador carrito de compras")

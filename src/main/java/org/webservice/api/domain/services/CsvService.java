@@ -22,23 +22,30 @@ import java.util.List;
 public class CsvService {
     private final Log LOGGER = LogFactory.getLog(CsvService.class);
     private final GameService gameService;
+
     public List<GamesDto> processCsv(MultipartFile file){
         LOGGER.info("file name: {"+ file.getOriginalFilename() +"}");
         LOGGER.info("file size (bytes): {"+ file.getSize() +"}");
 
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("file is empty");
+        }
+
+        if (!file.getOriginalFilename().endsWith(".csv")) {
+            throw new IllegalArgumentException("file must be csv");
+        }
+
         try(Reader reader = new InputStreamReader(file.getInputStream(),StandardCharsets.UTF_8)) {
+            LOGGER.info("processing file...");
             CsvToBean<GamesDto> csvToBean = new CsvToBeanBuilder<GamesDto>(reader)
                     .withType(GamesDto.class)
                     .withIgnoreLeadingWhiteSpace(true)
-                    .withThrowExceptions(false)
+                    .withThrowExceptions(true)
                     .build();
-            List<GamesDto> games = csvToBean.parse();
-            games.forEach(game->{
-                LOGGER.info("data: "+game.getGameTitle() + "," + game.getGameGenre() + "," + game.getReleaseDate());
-            });
-            return games;
+            return csvToBean.parse();
         }catch (Exception ex){
-            throw new RuntimeException("error", ex);
+            LOGGER.error("runtime error: " + ex.getMessage());
+            throw new RuntimeException("runtime error: " + ex.getMessage(), ex);
         }
     }
 

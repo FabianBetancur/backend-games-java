@@ -1,7 +1,6 @@
 package org.webservice.api.domain.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webservice.api.domain.UsersRolesDto;
 import org.webservice.api.persistence.UsersRolesRepository;

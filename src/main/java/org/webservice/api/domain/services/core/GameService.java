@@ -13,7 +13,6 @@ import org.webservice.api.domain.core.GamesViewDto;
 import org.webservice.api.persistence.core.GamesRepository;
 import org.webservice.api.persistence.core.GamesViewRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,5 +1,6 @@
 package org.webservice.api.web.exceptions;
 
+import com.opencsv.exceptions.CsvException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleValidation(
             MethodArgumentNotValidException ex){
@@ -33,6 +35,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<?> handleRunTime(RuntimeException ex){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new MessageResponse(ex.getMessage()));
+    }
+
+    @ExceptionHandler(CsvException.class)
+    public ResponseEntity<?> handleCsv(CsvException ex){
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new MessageResponse(ex.getMessage()));

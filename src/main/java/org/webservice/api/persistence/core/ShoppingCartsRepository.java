@@ -1,7 +1,6 @@
 package org.webservice.api.persistence.core;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.webservice.api.domain.core.ShoppingCartsDto;
 import org.webservice.api.domain.repository.core.ShoppingCartsRepositoryDto;

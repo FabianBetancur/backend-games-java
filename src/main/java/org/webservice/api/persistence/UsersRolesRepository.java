@@ -1,11 +1,9 @@
 package org.webservice.api.persistence;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.webservice.api.domain.UsersRolesDto;
 import org.webservice.api.domain.repository.UsersRolesRepositoryDto;
-import org.webservice.api.persistence.crud.UsersCrudRepository;
 import org.webservice.api.persistence.crud.UsersRolesCrudRepository;
 import org.webservice.api.persistence.entity.UsersRoles;
 import org.webservice.api.persistence.mapper.UsersRolesMapper;

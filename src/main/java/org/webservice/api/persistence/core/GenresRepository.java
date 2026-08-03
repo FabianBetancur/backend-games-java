@@ -9,9 +9,7 @@ import org.webservice.api.persistence.entity.core.Genres;
 import org.webservice.api.persistence.mapper.core.GenresMapper;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 @Repository
 @RequiredArgsConstructor

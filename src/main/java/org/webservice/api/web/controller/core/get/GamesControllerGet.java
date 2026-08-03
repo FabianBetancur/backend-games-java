@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.webservice.api.domain.core.GamesDto;
 import org.webservice.api.domain.core.GamesViewDto;
 import org.webservice.api.domain.services.core.GameService;
-import org.webservice.api.web.exceptions.MessageResponse;
-
 import java.util.HashMap;
 
 @Tag(name = "03 - Controlador juegos")
