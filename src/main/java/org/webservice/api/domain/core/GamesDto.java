@@ -14,7 +14,7 @@ public class GamesDto {
     @CsvBindByName(column = "gameTitle",required = true)
     private String gameTitle;
 
-    @NotBlank(message = "{NotBlank}")
+    @NotBlank(message = "{game.description.required}")
     @CsvBindByName(column = "gameDescription",required = true)
     private String gameDescription;
 

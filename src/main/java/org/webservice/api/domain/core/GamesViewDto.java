@@ -1,7 +1,9 @@
 package org.webservice.api.domain.core;
 
-import java.sql.Date;
+import lombok.Data;
 
+import java.sql.Date;
+@Data
 public class GamesViewDto {
     private Long id;
     private String title;

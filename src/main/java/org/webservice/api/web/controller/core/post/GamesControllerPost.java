@@ -6,8 +6,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +13,11 @@ import org.webservice.api.domain.core.GamesDto;
 import org.webservice.api.domain.services.core.GameService;
 import org.webservice.api.web.exceptions.MessageResponse;
 
-import java.util.HashMap;
-
 @Tag(name = "03 - Controlador juegos")
 @RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class GamesControllerPost {
-    private final Log LOGGER = LogFactory.getLog(GamesControllerPost.class);
     private final GameService service;
 
     @Operation(summary = "Guarda el elemento en la base de datos", description = "guerda el elemento")
@@ -47,20 +42,13 @@ public class GamesControllerPost {
         try {
             if(service.update(id,request)){
                 return ResponseEntity.status(HttpStatus.OK)
-                        .body(new HashMap<String,String>(){{
-                            put("message","successful data update");
-                        }});
+                        .body(new MessageResponse("successful data update"));
             }
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new HashMap<String,String>(){{
-                        put("message","unexpected error");
-                    }});
+                    .body(new MessageResponse("unexpected error"));
         } catch (Exception ex){
-            LOGGER.error(ex.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new HashMap<String,String>(){{
-                        put("message",ex.getMessage());
-                    }});
+                    .body(new MessageResponse(ex.getMessage()));
         }
     }
 }

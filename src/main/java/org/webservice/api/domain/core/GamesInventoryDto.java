@@ -1,5 +1,8 @@
 package org.webservice.api.domain.core;
 
+import lombok.Data;
+
+@Data
 public class GamesInventoryDto {
     private Integer inventoryId;
     private Long gameId;
