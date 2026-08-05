@@ -11,13 +11,11 @@ public class AssetsDto {
     private Long typeId;
     private Long brandId;
     private String hostName;
-/*
-    private UsersAsset usersAsset;
-    private Model model;
-    private Type type;
-    private Brand brand;
+    private UsersAssetDto usersAsset;
+    private ModelsDto model;
+    private AssetsTypesDto assetsType;
+    private BrandsDto brand;
 
- */
 
     public Long getAssetId() {
         return assetId;
@@ -73,5 +71,37 @@ public class AssetsDto {
 
     public void setHostName(String hostName) {
         this.hostName = hostName;
+    }
+
+    public UsersAssetDto getUsersAsset() {
+        return usersAsset;
+    }
+
+    public void setUsersAsset(UsersAssetDto usersAsset) {
+        this.usersAsset = usersAsset;
+    }
+
+    public ModelsDto getModel() {
+        return model;
+    }
+
+    public void setModel(ModelsDto model) {
+        this.model = model;
+    }
+
+    public AssetsTypesDto getAssetsType() {
+        return assetsType;
+    }
+
+    public void setAssetsType(AssetsTypesDto assetsType) {
+        this.assetsType = assetsType;
+    }
+
+    public BrandsDto getBrand() {
+        return brand;
+    }
+
+    public void setBrand(BrandsDto brand) {
+        this.brand = brand;
     }
 }

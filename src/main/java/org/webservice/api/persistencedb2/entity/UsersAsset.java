@@ -19,6 +19,11 @@ public class UsersAsset {
     @Column(name = "area_id",nullable = false)
     private Long areaId;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "area_id", insertable = false, updatable = false)
+    private Areas area;
+
+
     public Long getUserId() {
         return userId;
     }
@@ -49,5 +54,13 @@ public class UsersAsset {
 
     public void setAreaId(Long areaId) {
         this.areaId = areaId;
+    }
+
+    public Areas getArea() {
+        return area;
+    }
+
+    public void setArea(Areas area) {
+        this.area = area;
     }
 }

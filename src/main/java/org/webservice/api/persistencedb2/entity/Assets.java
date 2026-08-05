@@ -31,24 +31,22 @@ public class Assets {
     @Column(name = "host_name", nullable = false)
     private String hostName;
 
-    /*
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "assigned_user_id", insertable = false, updatable = false)
     private UsersAsset usersAsset;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "model_id", insertable = false, updatable = false)
-    private Model model;
+    private Models model;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id", insertable = false, updatable = false)
-    private Type type;
+    private AssetsTypes assetsType;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id", insertable = false, updatable = false)
-    private Brand brand;
+    private Brands brand;
 
-     */
 
     public Long getAssetId() {
         return assetId;
@@ -112,5 +110,37 @@ public class Assets {
 
     public void setHostName(String hostName) {
         this.hostName = hostName;
+    }
+
+    public UsersAsset getUsersAsset() {
+        return usersAsset;
+    }
+
+    public void setUsersAsset(UsersAsset usersAsset) {
+        this.usersAsset = usersAsset;
+    }
+
+    public Models getModel() {
+        return model;
+    }
+
+    public void setModel(Models model) {
+        this.model = model;
+    }
+
+    public AssetsTypes getAssetsType() {
+        return assetsType;
+    }
+
+    public void setAssetsType(AssetsTypes assetsType) {
+        this.assetsType = assetsType;
+    }
+
+    public Brands getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brands brand) {
+        this.brand = brand;
     }
 }

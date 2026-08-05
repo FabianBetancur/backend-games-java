@@ -8,6 +8,7 @@ public class UsersAssetDto {
     private String name;
     private String employeeId;
     private Long areaId;
+    private AreasDto area;
 
     public Long getUserId() {
         return userId;
@@ -39,5 +40,13 @@ public class UsersAssetDto {
 
     public void setAreaId(Long areaId) {
         this.areaId = areaId;
+    }
+
+    public AreasDto getArea() {
+        return area;
+    }
+
+    public void setArea(AreasDto area) {
+        this.area = area;
     }
 }
