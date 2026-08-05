@@ -31,6 +31,9 @@ public class Assets {
     @Column(name = "host_name", nullable = false)
     private String hostName;
 
+    @Column(name = "state_id", nullable = false)
+    private Long stateId;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "assigned_user_id", insertable = false, updatable = false)
     private UsersAsset usersAsset;
@@ -46,6 +49,10 @@ public class Assets {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id", insertable = false, updatable = false)
     private Brands brand;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "state_id", insertable = false, updatable = false)
+    private AssetStates state;
 
 
     public Long getAssetId() {
@@ -142,5 +149,21 @@ public class Assets {
 
     public void setBrand(Brands brand) {
         this.brand = brand;
+    }
+
+    public Long getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(Long stateId) {
+        this.stateId = stateId;
+    }
+
+    public AssetStates getState() {
+        return state;
+    }
+
+    public void setState(AssetStates state) {
+        this.state = state;
     }
 }

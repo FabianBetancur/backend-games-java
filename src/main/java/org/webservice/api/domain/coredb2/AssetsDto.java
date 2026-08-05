@@ -6,15 +6,18 @@ import lombok.Data;
 public class AssetsDto {
     private Long assetId;
     private Long uniqueId;
+    private Long assignedUserId;
     private String serialHostname;
     private Long modelId;
     private Long typeId;
     private Long brandId;
     private String hostName;
+    private Long stateId;
     private UsersAssetDto usersAsset;
     private ModelsDto model;
     private AssetsTypesDto assetsType;
     private BrandsDto brand;
+    private AssetStatesDto state;
 
 
     public Long getAssetId() {
@@ -31,6 +34,14 @@ public class AssetsDto {
 
     public void setUniqueId(Long uniqueId) {
         this.uniqueId = uniqueId;
+    }
+
+    public Long getAssignedUserId() {
+        return assignedUserId;
+    }
+
+    public void setAssignedUserId(Long assignedUserId) {
+        this.assignedUserId = assignedUserId;
     }
 
     public String getSerialHostname() {
@@ -103,5 +114,21 @@ public class AssetsDto {
 
     public void setBrand(BrandsDto brand) {
         this.brand = brand;
+    }
+
+    public Long getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(Long stateId) {
+        this.stateId = stateId;
+    }
+
+    public AssetStatesDto getState() {
+        return state;
+    }
+
+    public void setState(AssetStatesDto state) {
+        this.state = state;
     }
 }

@@ -49,7 +49,8 @@ public class GameService {
     }
 
     public GamesDto save(GamesDto gamesDto){
-        return repository.save(gamesDto).orElseThrow(()-> new IllegalStateException("unexpected error"));
+        return repository.save(gamesDto)
+                .orElseThrow(()-> new IllegalStateException("unexpected error"));
     }
 
     public Boolean update(Long id,GamesDto gamesDto){
