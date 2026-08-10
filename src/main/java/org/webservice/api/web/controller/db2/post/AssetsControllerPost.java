@@ -13,10 +13,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.webservice.api.domain.core.GamesDto;
 import org.webservice.api.domain.coredb2.AssetsDto;
 import org.webservice.api.domain.dto.db2.AssetsRequest;
 import org.webservice.api.domain.services.servicesdb2.AssetsService;
@@ -47,17 +45,38 @@ public class AssetsControllerPost {
     })
     @PostMapping("/asset")
     public ResponseEntity<?> saveAsset(@Valid @RequestBody AssetsRequest assetsRequest){
-        AssetsDto dto = new AssetsDto();
-        dto.setUniqueId(assetsRequest.getUniqueId());
-        dto.setAssignedUserId(assetsRequest.getAssignedUserId());
-        dto.setSerialNumber(assetsRequest.getSerialNumber());
-        dto.setModelId(assetsRequest.getModelId());
-        dto.setTypeId(assetsRequest.getTypeId());
-        dto.setBrandId(assetsRequest.getBrandId());
-        dto.setHostName(assetsRequest.getHostName());
-        dto.setStateId(assetsRequest.getStateId());
-        service.save(dto);
+        service.save(assetsRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(assetsRequest);
+    }
+
+    @Operation(summary = "Actualiza un activo en la base de datos", description = "Actualiza un elemento en la base de datos")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Elemento Actualizado correctamente",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = AssetsRequest.class))),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "error interno del servidor",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class)))
+    })
+    @PutMapping("/asset/{id}")
+    public ResponseEntity<?> updateAsset(@PathVariable Long id,@RequestBody AssetsRequest request){
+        try {
+            if(service.update(id,request)){
+                return ResponseEntity.status(HttpStatus.OK)
+                        .body(new MessageResponse("successful data update"));
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new MessageResponse("unexpected error"));
+        } catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new MessageResponse(ex.getMessage()));
+        }
     }
 }

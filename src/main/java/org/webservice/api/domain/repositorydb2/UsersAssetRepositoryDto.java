@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface UsersAssetRepositoryDto {
     Optional<List<UsersAssetDto>> findAll();
+    Optional<UsersAssetDto> findById(Long id);
     Optional<UsersAssetDto> save(UsersAssetDto usersAssetDto);
 }

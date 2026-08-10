@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.webservice.api.domain.coredb2.UsersAssetDto;
+import org.webservice.api.domain.dto.db2.UsersAssetRequest;
 import org.webservice.api.persistencedb2.UsersAssetRepository;
 import org.webservice.api.web.exceptions.MessageResponse;
 
@@ -23,10 +24,29 @@ public class UsersAssetService {
         return repository.findAll();
     }
 
-    public UsersAssetDto save(UsersAssetDto usersAssetDto){
-        return repository.save(usersAssetDto)
+    public UsersAssetDto save(UsersAssetRequest request){
+        UsersAssetDto dto = new UsersAssetDto();
+        dto.setName(request.getName());
+        dto.setEmployeeId(request.getEmployeeId());
+        dto.setAreaId(request.getAreaId());
+        return repository.save(dto)
                 .orElseThrow(()->new IllegalStateException(
                         String.valueOf(new MessageResponse("unexpected error!"))
                 ));
+    }
+
+    public Boolean update(Long id, UsersAssetRequest request){
+        try {
+            repository.findById(id).map(user->{
+                user.setName(request.getName());
+                user.setEmployeeId(request.getEmployeeId());
+                user.setAreaId(request.getAreaId());
+                return repository.save(user);
+            });
+            return true;
+        } catch (Exception ex){
+            LOGGER.debug(ex.getMessage());
+            return false;
+        }
     }
 }

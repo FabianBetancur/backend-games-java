@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
+
 public class UsersAssetRepository implements UsersAssetRepositoryDto {
     private final UsersAssetCrudRepository repository;
     private final UsersAssetMapper mapper;
@@ -20,6 +21,12 @@ public class UsersAssetRepository implements UsersAssetRepositoryDto {
     @Override
     public Optional<List<UsersAssetDto>> findAll() {
         return Optional.of((List<UsersAsset>) repository.findAll())
+                .map(mapper::toUsersAssetDto);
+    }
+
+    @Override
+    public Optional<UsersAssetDto> findById(Long id) {
+        return repository.findById(id)
                 .map(mapper::toUsersAssetDto);
     }
 

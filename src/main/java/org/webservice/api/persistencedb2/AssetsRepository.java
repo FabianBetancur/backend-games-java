@@ -28,4 +28,9 @@ public class AssetsRepository implements AssetsRepositoryDto {
         return Optional.of(repository.save(mapper.toAssets(dto)))
                 .map(mapper::toAssetsDto);
     }
+
+    @Override
+    public Optional<AssetsDto> findById(Long id) {
+        return repository.findById(id).map(mapper::toAssetsDto);
+    }
 }
