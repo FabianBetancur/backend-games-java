@@ -48,8 +48,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
 
                         /////////TEST/////////////
-                        .requestMatchers(HttpMethod.POST,"/test/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/test/**").permitAll()
+                        //.requestMatchers(HttpMethod.POST,"/test/**").permitAll()
+                        //.requestMatchers(HttpMethod.GET,"/test/**").permitAll()
                         /////////AUTH/////////////
                         .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/auth/profile").hasAuthority("update_content")
@@ -84,8 +84,33 @@ public class SecurityConfig {
                         /////////ORDERS////////////
                         .requestMatchers(HttpMethod.GET,"/order/**").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/order").hasAuthority("update_content")
+
+                        ////////DB2ASSETS//////////
+                        ////////ASSETS/////////////
+                        .requestMatchers(HttpMethod.GET,"/assets","/assets-view").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/asset").hasAuthority("update_content")
+                        ////////USERS ASSET///////
+                        .requestMatchers(HttpMethod.GET,"/users-asset").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/user-asset").hasAuthority("update_content")
+                        ///////MODELS ASSETS//////
+                        .requestMatchers(HttpMethod.GET,"/models").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/model").hasAuthority("update_content")
+                        ///////BRANDS ASSETS//////
+                        .requestMatchers(HttpMethod.GET,"/brands").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/brand").hasAuthority("update_content")
+                        ///////ASSETS STATES//////
+                        .requestMatchers(HttpMethod.GET,"/states").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/state").hasAuthority("update_content")
+                        ///////AREAS USERS ASSETS/
+                        .requestMatchers(HttpMethod.GET,"/areas").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/area").hasAuthority("update_content")
+                        //////ASSETS TYPES////////
+                        .requestMatchers(HttpMethod.GET,"/types").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/type").hasAuthority("update_content")
+
                         /////////CSV FILES/////////
-                        .requestMatchers(HttpMethod.POST,"/csv/upload").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/csv/upload","/csv/save").hasAuthority("update_content")
+
                         ////////SWAGGER UI/////////
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 

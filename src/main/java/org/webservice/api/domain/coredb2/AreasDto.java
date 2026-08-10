@@ -1,18 +1,23 @@
 package org.webservice.api.domain.coredb2;
 
+import com.opencsv.bean.CsvBindByName;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class AreasDto {
-    private Long assetId;
+    private Long areaId;
+
+    @NotBlank(message = "{NotBlank}")
+    @CsvBindByName(column = "description",required = true)
     private String description;
 
-    public Long getAssetId() {
-        return assetId;
+    public Long getAreaId() {
+        return areaId;
     }
 
-    public void setAssetId(Long assetId) {
-        this.assetId = assetId;
+    public void setAreaId(Long areaId) {
+        this.areaId = areaId;
     }
 
     public String getDescription() {

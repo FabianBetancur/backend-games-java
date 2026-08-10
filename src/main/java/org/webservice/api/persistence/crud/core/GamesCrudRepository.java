@@ -7,5 +7,5 @@ import org.webservice.api.persistence.entity.core.Games;
 import java.util.Optional;
 
 public interface GamesCrudRepository extends CrudRepository<Games,Long> {
-    Optional<Games> findById(Long id);
+    //Optional<Games> findById(Long id);
 }

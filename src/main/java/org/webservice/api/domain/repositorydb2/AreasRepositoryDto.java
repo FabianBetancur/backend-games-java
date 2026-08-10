@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface AreasRepositoryDto {
     Optional<List<AreasDto>> findAll();
+    Optional<AreasDto> save(AreasDto dto);
 }

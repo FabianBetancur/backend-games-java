@@ -20,7 +20,7 @@ import org.webservice.api.web.exceptions.MessageResponse;
 public class GamesControllerPost {
     private final GameService service;
 
-    @Operation(summary = "Guarda el elemento en la base de datos", description = "guerda el elemento")
+    @Operation(summary = "Guarda el elemento en la base de datos", description = "guarda el elemento")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Guardado correctamente"),
             @ApiResponse(responseCode = "500",description = "error interno del servidor")

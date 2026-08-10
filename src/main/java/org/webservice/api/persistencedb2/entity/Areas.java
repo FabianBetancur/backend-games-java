@@ -8,17 +8,17 @@ public class Areas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "area_id")
-    private Long assetId;
+    private Long areaId;
 
     @Column(name = "description",nullable = false)
     private String description;
 
-    public Long getAssetId() {
-        return assetId;
+    public Long getAreaId() {
+        return areaId;
     }
 
-    public void setAssetId(Long assetId) {
-        this.assetId = assetId;
+    public void setAreaId(Long areaId) {
+        this.areaId = areaId;
     }
 
     public String getDescription() {

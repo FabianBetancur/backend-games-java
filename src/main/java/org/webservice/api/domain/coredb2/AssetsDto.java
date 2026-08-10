@@ -7,13 +7,13 @@ public class AssetsDto {
     private Long assetId;
     private Long uniqueId;
     private Long assignedUserId;
-    private String serialHostname;
+    private String serialNumber;
     private Long modelId;
     private Long typeId;
     private Long brandId;
     private String hostName;
     private Long stateId;
-    private UsersAssetDto usersAsset;
+    private UsersAssetDto assignedUser;
     private ModelsDto model;
     private AssetsTypesDto assetsType;
     private BrandsDto brand;
@@ -44,12 +44,12 @@ public class AssetsDto {
         this.assignedUserId = assignedUserId;
     }
 
-    public String getSerialHostname() {
-        return serialHostname;
+    public String getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setSerialHostname(String serialHostname) {
-        this.serialHostname = serialHostname;
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     public Long getModelId() {
@@ -82,14 +82,6 @@ public class AssetsDto {
 
     public void setHostName(String hostName) {
         this.hostName = hostName;
-    }
-
-    public UsersAssetDto getUsersAsset() {
-        return usersAsset;
-    }
-
-    public void setUsersAsset(UsersAssetDto usersAsset) {
-        this.usersAsset = usersAsset;
     }
 
     public ModelsDto getModel() {
@@ -130,5 +122,13 @@ public class AssetsDto {
 
     public void setState(AssetStatesDto state) {
         this.state = state;
+    }
+
+    public UsersAssetDto getAssignedUser() {
+        return assignedUser;
+    }
+
+    public void setAssignedUser(UsersAssetDto assignedUser) {
+        this.assignedUser = assignedUser;
     }
 }

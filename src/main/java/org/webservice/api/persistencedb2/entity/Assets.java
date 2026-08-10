@@ -17,7 +17,7 @@ public class Assets {
     private Long assignedUserId;
 
     @Column(name = "serial_number", nullable = false)
-    private String serialHostname;
+    private String serialNumber;
 
     @Column(name = "model_id", nullable = false)
     private Long modelId;
@@ -36,7 +36,7 @@ public class Assets {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "assigned_user_id", insertable = false, updatable = false)
-    private UsersAsset usersAsset;
+    private UsersAsset assignedUser;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "model_id", insertable = false, updatable = false)
@@ -79,12 +79,12 @@ public class Assets {
         this.assignedUserId = assignedUserId;
     }
 
-    public String getSerialHostname() {
-        return serialHostname;
+    public String getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setSerialHostname(String serialHostname) {
-        this.serialHostname = serialHostname;
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     public Long getModelId() {
@@ -117,14 +117,6 @@ public class Assets {
 
     public void setHostName(String hostName) {
         this.hostName = hostName;
-    }
-
-    public UsersAsset getUsersAsset() {
-        return usersAsset;
-    }
-
-    public void setUsersAsset(UsersAsset usersAsset) {
-        this.usersAsset = usersAsset;
     }
 
     public Models getModel() {
@@ -165,5 +157,13 @@ public class Assets {
 
     public void setState(AssetStates state) {
         this.state = state;
+    }
+
+    public UsersAsset getAssignedUser() {
+        return assignedUser;
+    }
+
+    public void setAssignedUser(UsersAsset assignedUser) {
+        this.assignedUser = assignedUser;
     }
 }

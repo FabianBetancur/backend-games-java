@@ -22,4 +22,10 @@ public class ModelsRepository implements ModelsRepositoryDto {
         return Optional.of((List<Models>) repository.findAll())
                 .map(mapper::toModelsDto);
     }
+
+    @Override
+    public Optional<ModelsDto> save(ModelsDto dto) {
+        return Optional.of(repository.save(mapper.toModels(dto)))
+                .map(mapper::toModelsDto);
+    }
 }

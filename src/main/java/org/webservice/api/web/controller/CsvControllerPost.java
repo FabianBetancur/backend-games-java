@@ -35,17 +35,13 @@ public class CsvControllerPost {
                     description = "process ok",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = GamesDto.class)
-                    )
-            ),
+                            schema = @Schema(implementation = GamesDto.class))),
             @ApiResponse(
                     responseCode = "400",
                     description = "bad request",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = MessageResponse.class)
-                    )
-            )
+                            schema = @Schema(implementation = MessageResponse.class)))
     })
     @PostMapping(
             value = "/upload",
@@ -63,22 +59,15 @@ public class CsvControllerPost {
                     description = "process ok",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = MessageResponse.class)
-                    )
-            ),
+                            schema = @Schema(implementation = MessageResponse.class))),
             @ApiResponse(
                     responseCode = "400",
                     description = "bad request",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = MessageResponse.class)
-                    )
-            )
+                            schema = @Schema(implementation = MessageResponse.class)))
     })
-    @PostMapping(
-            value = "/save",
-            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
-    )
+    @PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> saveCsv(@RequestPart("file") MultipartFile file){
         if (file.isEmpty()) {
             return ResponseEntity.badRequest()

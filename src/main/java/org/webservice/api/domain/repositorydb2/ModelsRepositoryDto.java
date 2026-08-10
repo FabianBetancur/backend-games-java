@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface ModelsRepositoryDto {
     Optional<List<ModelsDto>> findAll();
+    Optional<ModelsDto> save(ModelsDto modelsDto);
 }

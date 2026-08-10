@@ -22,4 +22,10 @@ public class AssetsRepository implements AssetsRepositoryDto {
         return Optional.of((List<Assets>) repository.findAll())
                 .map(mapper::toAssetsDto);
     }
+
+    @Override
+    public Optional<AssetsDto> save(AssetsDto dto) {
+        return Optional.of(repository.save(mapper.toAssets(dto)))
+                .map(mapper::toAssetsDto);
+    }
 }

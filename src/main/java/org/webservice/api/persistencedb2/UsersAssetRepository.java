@@ -22,4 +22,10 @@ public class UsersAssetRepository implements UsersAssetRepositoryDto {
         return Optional.of((List<UsersAsset>) repository.findAll())
                 .map(mapper::toUsersAssetDto);
     }
+
+    @Override
+    public Optional<UsersAssetDto> save(UsersAssetDto usersAssetDto) {
+        return Optional.of(repository.save(mapper.toUsersAsset(usersAssetDto)))
+                .map(mapper::toUsersAssetDto);
+    }
 }

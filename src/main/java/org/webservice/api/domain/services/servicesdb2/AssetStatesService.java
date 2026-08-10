@@ -21,4 +21,8 @@ public class AssetStatesService {
     public Optional<List<AssetStatesDto>> findAll(){
         return repository.findAll();
     }
+
+    public Optional<AssetStatesDto> save(AssetStatesDto assetStatesDto){
+        return repository.save(assetStatesDto);
+    }
 }

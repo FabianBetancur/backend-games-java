@@ -22,4 +22,10 @@ public class AreasRepository implements AreasRepositoryDto {
         return Optional.of((List<Areas>) repository.findAll())
                 .map(mapper::toAreasDto);
     }
+
+    @Override
+    public Optional<AreasDto> save(AreasDto dto) {
+        return Optional.of(repository.save(mapper.toAreas(dto)))
+                .map(mapper::toAreasDto);
+    }
 }

@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.webservice.api.domain.coredb2.ModelsDto;
 import org.webservice.api.persistencedb2.ModelsRepository;
+import org.webservice.api.web.exceptions.MessageResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,5 +21,11 @@ public class ModelsService {
 
     public Optional<List<ModelsDto>> findAll(){
         return repository.findAll();
+    }
+
+    public ModelsDto save(ModelsDto dto){
+        return repository.save(dto).orElseThrow(()->new IllegalStateException(
+                String.valueOf(new MessageResponse("unexpected error!"))
+        ));
     }
 }

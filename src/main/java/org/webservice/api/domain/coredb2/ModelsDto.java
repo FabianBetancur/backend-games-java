@@ -1,10 +1,15 @@
 package org.webservice.api.domain.coredb2;
 
+import com.opencsv.bean.CsvBindByName;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class ModelsDto {
     private Long modelId;
+
+    @NotBlank(message = "{NotBlank}")
+    @CsvBindByName(column = "description",required = true)
     private String description;
 
     public Long getModelId() {
