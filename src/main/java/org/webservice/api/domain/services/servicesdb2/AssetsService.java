@@ -42,11 +42,12 @@ public class AssetsService {
                 asset.setUniqueId(assetsRequest.getUniqueId());
                 asset.setAssignedUserId(assetsRequest.getAssignedUserId());
                 asset.setStateId(assetsRequest.getStateId());
+                asset.setMonitorId(assetsRequest.getMonitorId());
                 return repository.save(asset);
             });
             return true;
         } catch (Exception ex){
-            LOGGER.debug(ex.getMessage());
+            LOGGER.error(ex.getMessage());
             return false;
         }
     }
@@ -61,6 +62,7 @@ public class AssetsService {
         assetsDto.setBrandId(assetsRequest.getBrandId());
         assetsDto.setHostName(assetsRequest.getHostName());
         assetsDto.setStateId(assetsRequest.getStateId());
+        assetsDto.setMonitorId(assetsRequest.getMonitorId());
         return repository.save(assetsDto)
                 .orElseThrow(()->new IllegalStateException(
                         String.valueOf(new MessageResponse("unexpected error!"))));

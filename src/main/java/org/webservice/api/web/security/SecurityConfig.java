@@ -107,6 +107,9 @@ public class SecurityConfig {
                         //////ASSETS TYPES////////
                         .requestMatchers(HttpMethod.GET,"/types").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/type").hasAuthority("update_content")
+                        //////MONITORS////////
+                        .requestMatchers(HttpMethod.GET,"/monitors").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/monitor").hasAuthority("update_content")
 
                         /////////CSV FILES/////////
                         .requestMatchers(HttpMethod.POST,"/csv/upload","/csv/save").hasAuthority("update_content")

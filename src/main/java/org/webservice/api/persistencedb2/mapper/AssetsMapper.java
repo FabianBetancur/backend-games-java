@@ -14,5 +14,4 @@ public interface AssetsMapper {
 
     @InheritInverseConfiguration
     Assets toAssets(AssetsDto assetsDto);
-
 }

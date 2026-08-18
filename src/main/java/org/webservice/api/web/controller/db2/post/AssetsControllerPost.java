@@ -14,8 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.webservice.api.domain.core.GamesDto;
-import org.webservice.api.domain.coredb2.AssetsDto;
 import org.webservice.api.domain.dto.db2.AssetsRequest;
 import org.webservice.api.domain.services.servicesdb2.AssetsService;
 import org.webservice.api.web.exceptions.MessageResponse;
@@ -67,16 +65,11 @@ public class AssetsControllerPost {
     })
     @PutMapping("/asset/{id}")
     public ResponseEntity<?> updateAsset(@PathVariable Long id,@RequestBody AssetsRequest request){
-        try {
-            if(service.update(id,request)){
-                return ResponseEntity.status(HttpStatus.OK)
-                        .body(new MessageResponse("successful data update"));
-            }
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new MessageResponse("unexpected error"));
-        } catch (Exception ex){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new MessageResponse(ex.getMessage()));
+        if(service.update(id,request)){
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new MessageResponse("successful data update"));
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new MessageResponse("unexpected error"));
     }
 }

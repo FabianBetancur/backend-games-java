@@ -13,12 +13,13 @@ public class AssetsDto {
     private Long brandId;
     private String hostName;
     private Long stateId;
+    private Long monitorId;
     private UsersAssetDto assignedUser;
     private ModelsDto model;
     private AssetsTypesDto assetsType;
     private BrandsDto brand;
     private AssetStatesDto state;
-
+    private MonitorsDto monitor;
 
     public Long getAssetId() {
         return assetId;
@@ -130,5 +131,21 @@ public class AssetsDto {
 
     public void setAssignedUser(UsersAssetDto assignedUser) {
         this.assignedUser = assignedUser;
+    }
+
+    public MonitorsDto getMonitor() {
+        return monitor;
+    }
+
+    public void setMonitor(MonitorsDto monitor) {
+        this.monitor = monitor;
+    }
+
+    public Long getMonitorId() {
+        return monitorId;
+    }
+
+    public void setMonitorId(Long monitorId) {
+        this.monitorId = monitorId;
     }
 }

@@ -39,6 +39,10 @@ public class AssetsRequest {
     @CsvBindByName(column = "stateId",required = true)
     private Long stateId;
 
+    @NotNull(message = "{NotNull}")
+    @CsvBindByName(column = "monitorId",required = true)
+    private Long monitorId;
+
     public Long getUniqueId() {
         return uniqueId;
     }
@@ -101,5 +105,13 @@ public class AssetsRequest {
 
     public void setStateId(Long stateId) {
         this.stateId = stateId;
+    }
+
+    public Long getMonitorId() {
+        return monitorId;
+    }
+
+    public void setMonitorId(Long monitorId) {
+        this.monitorId = monitorId;
     }
 }

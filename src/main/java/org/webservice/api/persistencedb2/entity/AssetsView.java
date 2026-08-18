@@ -29,6 +29,10 @@ public class AssetsView {
     private String employeeId;
 
     private String state;
+    private String monitor;
+
+    @Column(name = "brand_monitor")
+    private String brandMonitor;
 
     public Long getId() {
         return id;
@@ -108,5 +112,21 @@ public class AssetsView {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getMonitor() {
+        return monitor;
+    }
+
+    public void setMonitor(String monitor) {
+        this.monitor = monitor;
+    }
+
+    public String getBrandMonitor() {
+        return brandMonitor;
+    }
+
+    public void setBrandMonitor(String brandMonitor) {
+        this.brandMonitor = brandMonitor;
     }
 }

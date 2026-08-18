@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.webservice.api.domain.coredb2.AssetStatesDto;
-import org.webservice.api.domain.coredb2.UsersAssetDto;
 import org.webservice.api.domain.services.servicesdb2.AssetStatesService;
 import org.webservice.api.web.exceptions.MessageResponse;
 

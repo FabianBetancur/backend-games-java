@@ -34,6 +34,9 @@ public class Assets {
     @Column(name = "state_id", nullable = false)
     private Long stateId;
 
+    @Column(name = "monitor_id",nullable = false)
+    private Long monitorId;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "assigned_user_id", insertable = false, updatable = false)
     private UsersAsset assignedUser;
@@ -54,6 +57,9 @@ public class Assets {
     @JoinColumn(name = "state_id", insertable = false, updatable = false)
     private AssetStates state;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "monitor_id", insertable = false, updatable = false)
+    private Monitors monitor;
 
     public Long getAssetId() {
         return assetId;
@@ -165,5 +171,22 @@ public class Assets {
 
     public void setAssignedUser(UsersAsset assignedUser) {
         this.assignedUser = assignedUser;
+    }
+
+    public Long getMonitorId() {
+        return monitorId;
+    }
+
+    public void setMonitorId(Long monitorId) {
+        this.monitorId = monitorId;
+    }
+
+
+    public Monitors getMonitor() {
+        return monitor;
+    }
+
+    public void setMonitor(Monitors monitor) {
+        this.monitor = monitor;
     }
 }
