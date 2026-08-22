@@ -7,9 +7,9 @@ import lombok.Data;
 
 @Data
 public class AssetsRequest {
-    @NotNull(message = "{uid.required}")
+    @NotBlank(message = "{uid.required}")
     @CsvBindByName(column = "uniqueId",required = true)
-    private Long uniqueId;
+    private String uniqueId;
 
     @NotNull(message = "{NotNull}")
     @CsvBindByName(column = "assignedUserId",required = true)
@@ -43,11 +43,11 @@ public class AssetsRequest {
     @CsvBindByName(column = "monitorId",required = true)
     private Long monitorId;
 
-    public Long getUniqueId() {
+    public String getUniqueId() {
         return uniqueId;
     }
 
-    public void setUniqueId(Long uniqueId) {
+    public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
     }
 

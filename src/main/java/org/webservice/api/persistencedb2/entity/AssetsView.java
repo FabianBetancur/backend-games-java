@@ -20,7 +20,7 @@ public class AssetsView {
     @Column(name = "host_name")
     private String hostName;
 
-    private Long uid;
+    private String uid;
 
     @Column(name = "assigned_user")
     private String assignedUser;
@@ -82,11 +82,11 @@ public class AssetsView {
         this.hostName = hostName;
     }
 
-    public Long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 

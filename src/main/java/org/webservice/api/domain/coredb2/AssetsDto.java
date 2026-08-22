@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AssetsDto {
     private Long assetId;
-    private Long uniqueId;
+    private String uniqueId;
     private Long assignedUserId;
     private String serialNumber;
     private Long modelId;
@@ -29,11 +29,11 @@ public class AssetsDto {
         this.assetId = assetId;
     }
 
-    public Long getUniqueId() {
+    public String getUniqueId() {
         return uniqueId;
     }
 
-    public void setUniqueId(Long uniqueId) {
+    public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
     }
 

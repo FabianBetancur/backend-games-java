@@ -11,7 +11,7 @@ public class Assets {
     private Long assetId;
 
     @Column(name = "unique_id",nullable = false)
-    private Long uniqueId;
+    private String uniqueId;
 
     @Column(name = "assigned_user_id", nullable = false)
     private Long assignedUserId;
@@ -69,11 +69,11 @@ public class Assets {
         this.assetId = assetId;
     }
 
-    public Long getUniqueId() {
+    public String getUniqueId() {
         return uniqueId;
     }
 
-    public void setUniqueId(Long uniqueId) {
+    public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
     }
 

@@ -10,7 +10,7 @@ public class AssetsViewDto {
     private String type;
     private String serialNumber;
     private String hostName;
-    private Long uid;
+    private String uid;
     private String assignedUser;
     private String employeeId;
     private String state;
@@ -65,11 +65,11 @@ public class AssetsViewDto {
         this.hostName = hostName;
     }
 
-    public Long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
