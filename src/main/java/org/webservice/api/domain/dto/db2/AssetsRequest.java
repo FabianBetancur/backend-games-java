@@ -39,7 +39,6 @@ public class AssetsRequest {
     @CsvBindByName(column = "stateId",required = true)
     private Long stateId;
 
-    @NotNull(message = "{NotNull}")
     @CsvBindByName(column = "monitorId",required = true)
     private Long monitorId;
 
