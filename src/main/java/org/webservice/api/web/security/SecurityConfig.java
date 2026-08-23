@@ -46,10 +46,13 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(authorize -> authorize
+                        ////////SWAGGER UI/////////
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 
                         /////////TEST/////////////
                         //.requestMatchers(HttpMethod.POST,"/test/**").permitAll()
                         //.requestMatchers(HttpMethod.GET,"/test/**").permitAll()
+
                         /////////AUTH/////////////
                         .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/auth/profile").hasAuthority("update_content")
@@ -87,11 +90,13 @@ public class SecurityConfig {
 
                         ////////DB2ASSETS//////////
                         ////////ASSETS/////////////
-                        .requestMatchers(HttpMethod.GET,"/assets","/assets-view").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.GET,"/assets","/assets-view","/asset/**").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/asset").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.PUT,"/asset/**").hasAuthority("update_content")
                         ////////USERS ASSET///////
                         .requestMatchers(HttpMethod.GET,"/users-asset").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/user-asset").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.PUT,"/user-asset/**").hasAuthority("update_content")
                         ///////MODELS ASSETS//////
                         .requestMatchers(HttpMethod.GET,"/models").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/model").hasAuthority("update_content")
@@ -110,12 +115,12 @@ public class SecurityConfig {
                         //////MONITORS////////
                         .requestMatchers(HttpMethod.GET,"/monitors").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/monitor").hasAuthority("update_content")
+                        ///////COMMENTS///////
+                        .requestMatchers(HttpMethod.GET,"/comment-asset/**").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/comment").hasAuthority("update_content")
 
                         /////////CSV FILES/////////
                         .requestMatchers(HttpMethod.POST,"/csv/upload","/csv/save").hasAuthority("update_content")
-
-                        ////////SWAGGER UI/////////
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 
                         .anyRequest().authenticated()
                 )

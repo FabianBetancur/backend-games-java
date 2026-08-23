@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.webservice.api.domain.coredb2.AssetsDto;
@@ -66,5 +67,36 @@ public class AssetsControllerGet {
     @GetMapping("/assets-view")
     public ResponseEntity<?> getAllAssetsView(){
         return new ResponseEntity<>(service.findAllView(), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Obtiene activo por id ", description = "Elemento por id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Elemento obtenido correctamente",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = AssetsDto.class))),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "error interno del servidor",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class)))
+    })
+    @GetMapping("/asset/{id}")
+    public ResponseEntity<?> getAssetById(@PathVariable("id")Long id){
+        try {
+            return service.findById(id)
+                    .map(asset->{
+                        LOGGER.info("data obtained success");
+                        return new ResponseEntity<>(asset,HttpStatus.OK);
+                    })
+                    .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        } catch (Exception ex){
+            LOGGER.error( new MessageResponse(ex.getMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new MessageResponse(ex.getMessage()));
+        }
     }
 }

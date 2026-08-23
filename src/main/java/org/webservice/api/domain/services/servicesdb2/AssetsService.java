@@ -27,6 +27,10 @@ public class AssetsService {
         return repository.findAll();
     }
 
+    public Optional<AssetsDto> findById(Long id){
+        return repository.findById(id);
+    }
+
     public Optional<List<AssetsViewDto>> findAllView(){
         return viewRepository.findAll();
     }

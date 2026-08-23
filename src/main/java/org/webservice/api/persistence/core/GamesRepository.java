@@ -19,16 +19,19 @@ public class GamesRepository implements GamesRepositoryDto {
 
     @Override
     public Optional<List<GamesDto>> findAll() {
-        return Optional.of((List<Games>) repository.findAll()).map(mapper::toGamesDto);
+        return Optional.of((List<Games>) repository.findAll())
+                .map(mapper::toGamesDto);
     }
 
     @Override
     public Optional<GamesDto> findById(Long id) {
-        return repository.findById(id).map(mapper::toGamesDto);
+        return repository.findById(id)
+                .map(mapper::toGamesDto);
     }
 
     @Override
     public Optional<GamesDto> save(GamesDto dto) {
-        return Optional.of(repository.save(mapper.toGames(dto))).map(mapper::toGamesDto);
+        return Optional.of(repository.save(mapper.toGames(dto)))
+                .map(mapper::toGamesDto);
     }
 }
