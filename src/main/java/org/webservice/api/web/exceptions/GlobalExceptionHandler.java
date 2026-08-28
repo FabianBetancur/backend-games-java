@@ -46,4 +46,19 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new MessageResponse(ex.getMessage()));
     }
+
+    @ExceptionHandler(CsvProcessingException.class)
+    public ResponseEntity<MessageResponse> handleCsvError(
+            CsvProcessingException ex) {
+        return ResponseEntity
+                .unprocessableEntity()
+                .body(new MessageResponse(ex.getMessage()));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<MessageResponse> handleGeneric(Exception ex) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new MessageResponse("internal server error"));
+    }
 }

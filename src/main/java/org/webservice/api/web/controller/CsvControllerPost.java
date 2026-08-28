@@ -14,9 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.webservice.api.domain.core.GamesDto;
+import org.webservice.api.domain.dto.db2.AssetsRequest;
 import org.webservice.api.domain.services.CsvService;
 import org.webservice.api.web.exceptions.MessageResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -81,5 +83,28 @@ public class CsvControllerPost {
 
         csvService.saveList(csvService.processCsv(file));
         return ResponseEntity.ok(new MessageResponse("data saved successfully"));
+    }
+
+    @Operation(summary = "Process asset csv file", description = "csv file")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "process ok",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = AssetsRequest.class))),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "bad request",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class)))
+    })
+    @PostMapping(
+            value = "/upload-asset",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    public ResponseEntity<?> assetCsv(@RequestPart("file") MultipartFile file){
+        return ResponseEntity.ok(csvService.processCsvAsset(file));
     }
 }

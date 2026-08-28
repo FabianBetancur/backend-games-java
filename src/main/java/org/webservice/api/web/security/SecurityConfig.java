@@ -120,7 +120,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/comment").hasAuthority("update_content")
 
                         /////////CSV FILES/////////
-                        .requestMatchers(HttpMethod.POST,"/csv/upload","/csv/save").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/csv/upload","/csv/save","/csv/upload-asset")
+                        .hasAuthority("update_content")
 
                         .anyRequest().authenticated()
                 )

@@ -9,8 +9,11 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.webservice.api.domain.core.GamesDto;
+import org.webservice.api.domain.dto.db2.AssetsRequest;
 import org.webservice.api.domain.services.core.GameService;
+import org.webservice.api.web.exceptions.CsvProcessingException;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
@@ -23,19 +26,38 @@ public class CsvService {
     private final Log LOGGER = LogFactory.getLog(CsvService.class);
     private final GameService gameService;
 
-    public List<GamesDto> processCsv(MultipartFile file){
+    public MultipartFile validateCsv(MultipartFile file){
         LOGGER.info("file name: {"+ file.getOriginalFilename() +"}");
         LOGGER.info("file size (bytes): {"+ file.getSize() +"}");
-
         if (file.isEmpty()) {
             throw new IllegalArgumentException("file is empty");
         }
-
-        if (!file.getOriginalFilename().endsWith(".csv")) {
+        if (!file.getOriginalFilename().toLowerCase().endsWith(".csv") || file.getOriginalFilename() == null) {
             throw new IllegalArgumentException("file must be csv");
         }
+        return file;
+    }
 
-        try(Reader reader = new InputStreamReader(file.getInputStream(),StandardCharsets.UTF_8)) {
+    public List<AssetsRequest> processCsvAsset(MultipartFile file){
+        try(Reader reader = new InputStreamReader(validateCsv(file).getInputStream(),StandardCharsets.UTF_8)) {
+            LOGGER.info("processing file...");
+            CsvToBean<AssetsRequest> csvToBean = new CsvToBeanBuilder<AssetsRequest>(reader)
+                    .withType(AssetsRequest.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .withThrowExceptions(true)
+                    .build();
+            return csvToBean.parse();
+        } catch (IOException ex) {
+            LOGGER.error("io error while reading file", ex);
+            throw new CsvProcessingException("error reading the file", ex);
+        } catch (RuntimeException ex) {
+            LOGGER.error("csv parsing error", ex);
+            throw new CsvProcessingException("invalid csv structure or data", ex);
+        }
+    }
+
+    public List<GamesDto> processCsv(MultipartFile file){
+        try(Reader reader = new InputStreamReader(validateCsv(file).getInputStream(),StandardCharsets.UTF_8)) {
             LOGGER.info("processing file...");
             CsvToBean<GamesDto> csvToBean = new CsvToBeanBuilder<GamesDto>(reader)
                     .withType(GamesDto.class)
