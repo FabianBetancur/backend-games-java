@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface AssetsViewRepositoryDto {
     Optional<List<AssetsViewDto>> findAll();
+    Optional<List<AssetsViewDto>> searchAsset(String value);
 }

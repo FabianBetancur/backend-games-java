@@ -35,6 +35,10 @@ public class AssetsService {
         return viewRepository.findAll();
     }
 
+    public Optional<List<AssetsViewDto>> searchAssets(String value){
+        return viewRepository.searchAsset(value);
+    }
+
     public Boolean update(Long id, AssetsRequest assetsRequest){
         try {
             repository.findById(id).map(asset->{

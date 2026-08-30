@@ -94,7 +94,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/asset").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.PUT,"/asset/**").hasAuthority("update_content")
                         ////////USERS ASSET///////
-                        .requestMatchers(HttpMethod.GET,"/users-asset").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.GET,"/users-asset","/assets/search/**").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/user-asset").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.PUT,"/user-asset/**").hasAuthority("update_content")
                         ///////MODELS ASSETS//////

@@ -22,4 +22,9 @@ public class AssetsViewRepository implements AssetsViewRepositoryDto {
         return Optional.of((List<AssetsView>) repository.findAll())
                 .map(mapper::toAssetsViewDto);
     }
+
+    @Override
+    public Optional<List<AssetsViewDto>> searchAsset(String value) {
+        return repository.searchAssets(value).map(mapper::toAssetsViewDto);
+    }
 }

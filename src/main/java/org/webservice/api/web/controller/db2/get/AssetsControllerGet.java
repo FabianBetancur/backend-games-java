@@ -12,10 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.webservice.api.domain.coredb2.AssetsDto;
 import org.webservice.api.domain.coredb2.AssetsViewDto;
 import org.webservice.api.domain.services.servicesdb2.AssetsService;
@@ -67,6 +64,26 @@ public class AssetsControllerGet {
     @GetMapping("/assets-view")
     public ResponseEntity<?> getAllAssetsView(){
         return new ResponseEntity<>(service.findAllView(), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Obtiene la busqueda de los activos", description = "Lista encontrada de elementos disponibles")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Lista obtenida correctamente",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = AssetsViewDto.class))),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "error interno del servidor",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class)))
+    })
+    @GetMapping("/assets/search")
+    public ResponseEntity<?> searchAssets(@RequestParam String value){
+        return new ResponseEntity<>(service.searchAssets(value),HttpStatus.OK);
     }
 
     @Operation(summary = "Obtiene activo por id ", description = "Elemento por id")

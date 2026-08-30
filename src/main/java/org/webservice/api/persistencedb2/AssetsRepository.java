@@ -3,6 +3,7 @@ package org.webservice.api.persistencedb2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.webservice.api.domain.coredb2.AssetsDto;
+import org.webservice.api.domain.coredb2.AssetsViewDto;
 import org.webservice.api.domain.repositorydb2.AssetsRepositoryDto;
 import org.webservice.api.persistencedb2.crud.AssetsCrudRepository;
 import org.webservice.api.persistencedb2.entity.Assets;
