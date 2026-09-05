@@ -118,6 +118,9 @@ public class SecurityConfig {
                         ///////COMMENTS///////
                         .requestMatchers(HttpMethod.GET,"/comment-asset/**").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/comment").hasAuthority("update_content")
+                        ///////MAINTENANCES///////
+                        .requestMatchers(HttpMethod.GET,"/maintenance-asset/**").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.POST,"/maintenance").hasAuthority("update_content")
 
                         /////////CSV FILES/////////
                         .requestMatchers(HttpMethod.POST,"/csv/upload","/csv/save","/csv/upload-asset")

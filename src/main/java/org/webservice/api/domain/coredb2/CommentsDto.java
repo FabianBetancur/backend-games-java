@@ -1,8 +1,5 @@
 package org.webservice.api.domain.coredb2;
 
-
-import com.opencsv.bean.CsvBindByName;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.time.LocalDateTime;
