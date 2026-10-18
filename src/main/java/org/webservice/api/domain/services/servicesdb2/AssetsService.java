@@ -35,6 +35,10 @@ public class AssetsService {
         return viewRepository.findAll();
     }
 
+    public Optional<AssetsViewDto> findViewById(Long id){
+        return viewRepository.findById(id);
+    }
+
     public Optional<List<AssetsViewDto>> searchAssets(String value){
         return viewRepository.searchAsset(value);
     }

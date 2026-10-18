@@ -116,4 +116,35 @@ public class AssetsControllerGet {
                     .body(new MessageResponse(ex.getMessage()));
         }
     }
+
+    @Operation(summary = "Obtiene vista del activo por id ", description = "Elemento por id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Elemento obtenido correctamente",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = AssetsDto.class))),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "error interno del servidor",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class)))
+    })
+    @GetMapping("/asset-view/{id}")
+    public  ResponseEntity<?> getViewById(@PathVariable("id")Long id){
+        try {
+            return service.findViewById(id)
+                    .map(asset->{
+                        LOGGER.info("data obtained success");
+                        return new ResponseEntity<>(asset,HttpStatus.OK);
+                    })
+                    .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        } catch (Exception ex){
+            LOGGER.error( new MessageResponse(ex.getMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new MessageResponse(ex.getMessage()));
+        }
+    }
 }

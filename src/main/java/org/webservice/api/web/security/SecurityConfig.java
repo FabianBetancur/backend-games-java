@@ -90,7 +90,7 @@ public class SecurityConfig {
 
                         ////////DB2ASSETS//////////
                         ////////ASSETS/////////////
-                        .requestMatchers(HttpMethod.GET,"/assets","/assets-view","/asset/**").hasAuthority("update_content")
+                        .requestMatchers(HttpMethod.GET,"/assets","/assets-view","/asset/**","/asset-view").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/asset").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.PUT,"/asset/**").hasAuthority("update_content")
                         ////////USERS ASSET///////
