@@ -97,10 +97,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/users-asset","/assets/search/**").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/user-asset").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.PUT,"/user-asset/**").hasAuthority("update_content")
-                        ///////MODELS ASSETS//////
+                        ///////MODELS MODELS//////
                         .requestMatchers(HttpMethod.GET,"/models").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/model").hasAuthority("update_content")
-                        ///////BRANDS ASSETS//////
+                        ///////BRANDS BRANDS//////
                         .requestMatchers(HttpMethod.GET,"/brands").hasAuthority("update_content")
                         .requestMatchers(HttpMethod.POST,"/brand").hasAuthority("update_content")
                         ///////ASSETS STATES//////
@@ -123,7 +123,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/maintenance").hasAuthority("update_content")
 
                         /////////CSV FILES/////////
-                        .requestMatchers(HttpMethod.POST,"/csv/upload","/csv/save","/csv/upload-asset")
+                        .requestMatchers(HttpMethod.POST,"/csv/upload-game","/csv/save-game","/csv/upload-asset")
                         .hasAuthority("update_content")
 
                         .anyRequest().authenticated()

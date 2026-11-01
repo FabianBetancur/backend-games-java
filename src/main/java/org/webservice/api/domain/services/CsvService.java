@@ -2,6 +2,7 @@ package org.webservice.api.domain.services;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.exceptions.CsvException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
@@ -18,6 +19,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -46,7 +48,12 @@ public class CsvService {
                     .withIgnoreLeadingWhiteSpace(true)
                     .withThrowExceptions(true)
                     .build();
-            return csvToBean.parse();
+            List<AssetsRequest> list = csvToBean.parse();
+            list.forEach(asset -> {
+                if(asset.getMonitorId() == 0) asset.setMonitorId(null);
+            });
+            LOGGER.info("processing completed");
+            return list;
         } catch (IOException ex) {
             LOGGER.error("io error while reading file", ex);
             throw new CsvProcessingException("error reading the file", ex);

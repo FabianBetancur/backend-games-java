@@ -59,6 +59,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<MessageResponse> handleGeneric(Exception ex) {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new MessageResponse("internal server error"));
+                .body(new MessageResponse("internal server error: " + ex));
     }
 }

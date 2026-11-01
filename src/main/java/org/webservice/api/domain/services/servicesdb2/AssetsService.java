@@ -43,7 +43,7 @@ public class AssetsService {
         return viewRepository.searchAsset(value);
     }
 
-    public Boolean update(Long id, AssetsRequest assetsRequest){
+    public String update(Long id, AssetsRequest assetsRequest){
         try {
             repository.findById(id).map(asset->{
                 asset.setBrandId(assetsRequest.getBrandId());
@@ -57,26 +57,30 @@ public class AssetsService {
                 asset.setMonitorId(assetsRequest.getMonitorId());
                 return repository.save(asset);
             });
-            return true;
+            return "OK";
         } catch (Exception ex){
             LOGGER.error(ex.getMessage());
-            return false;
+            return ex.getMessage();
         }
     }
 
-    public AssetsDto save(AssetsRequest assetsRequest){
-        AssetsDto assetsDto = new AssetsDto();
-        assetsDto.setUniqueId(assetsRequest.getUniqueId());
-        assetsDto.setAssignedUserId(assetsRequest.getAssignedUserId());
-        assetsDto.setSerialNumber(assetsRequest.getSerialNumber());
-        assetsDto.setModelId(assetsRequest.getModelId());
-        assetsDto.setTypeId(assetsRequest.getTypeId());
-        assetsDto.setBrandId(assetsRequest.getBrandId());
-        assetsDto.setHostName(assetsRequest.getHostName());
-        assetsDto.setStateId(assetsRequest.getStateId());
-        assetsDto.setMonitorId(assetsRequest.getMonitorId());
-        return repository.save(assetsDto)
-                .orElseThrow(()->new IllegalStateException(
-                        String.valueOf(new MessageResponse("unexpected error!"))));
+    public String save(AssetsRequest assetsRequest){
+        try {
+            AssetsDto assetsDto = new AssetsDto();
+            assetsDto.setUniqueId(assetsRequest.getUniqueId());
+            assetsDto.setAssignedUserId(assetsRequest.getAssignedUserId());
+            assetsDto.setSerialNumber(assetsRequest.getSerialNumber());
+            assetsDto.setModelId(assetsRequest.getModelId());
+            assetsDto.setTypeId(assetsRequest.getTypeId());
+            assetsDto.setBrandId(assetsRequest.getBrandId());
+            assetsDto.setHostName(assetsRequest.getHostName());
+            assetsDto.setStateId(assetsRequest.getStateId());
+            assetsDto.setMonitorId(assetsRequest.getMonitorId());
+            repository.save(assetsDto);
+            return "OK";
+        } catch (Exception ex){
+            LOGGER.error(ex.getMessage());
+            return ex.getMessage();
+        }
     }
 }

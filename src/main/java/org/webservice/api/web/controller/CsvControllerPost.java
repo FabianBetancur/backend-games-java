@@ -18,7 +18,7 @@ import org.webservice.api.domain.dto.db2.AssetsRequest;
 import org.webservice.api.domain.services.CsvService;
 import org.webservice.api.web.exceptions.MessageResponse;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -46,7 +46,7 @@ public class CsvControllerPost {
                             schema = @Schema(implementation = MessageResponse.class)))
     })
     @PostMapping(
-            value = "/upload",
+            value = "/upload-game",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
     public ResponseEntity<List<GamesDto>> processCsv(@RequestPart("file") MultipartFile file) {
@@ -69,8 +69,8 @@ public class CsvControllerPost {
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = MessageResponse.class)))
     })
-    @PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> saveCsv(@RequestPart("file") MultipartFile file){
+    @PostMapping(value = "/save-game", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> saveListCsv(@RequestPart("file") MultipartFile file){
         if (file.isEmpty()) {
             return ResponseEntity.badRequest()
                     .body(new MessageResponse("file is empty"));
@@ -105,6 +105,7 @@ public class CsvControllerPost {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
     public ResponseEntity<?> assetCsv(@RequestPart("file") MultipartFile file){
-        return ResponseEntity.ok(csvService.processCsvAsset(file));
+        List<AssetsRequest> result = csvService.processCsvAsset(file);
+        return ResponseEntity.ok(result);
     }
 }

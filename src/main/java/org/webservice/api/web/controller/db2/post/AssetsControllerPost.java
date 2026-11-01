@@ -43,9 +43,14 @@ public class AssetsControllerPost {
     })
     @PostMapping("/asset")
     public ResponseEntity<?> saveAsset(@Valid @RequestBody AssetsRequest assetsRequest){
-        service.save(assetsRequest);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(assetsRequest);
+        String result = service.save(assetsRequest);
+        if (result.equals("OK")){
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(assetsRequest);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new MessageResponse(result));
+
     }
 
     @Operation(summary = "Actualiza un activo en la base de datos", description = "Actualiza un elemento en la base de datos")
@@ -65,11 +70,12 @@ public class AssetsControllerPost {
     })
     @PutMapping("/asset/{id}")
     public ResponseEntity<?> updateAsset(@PathVariable Long id,@RequestBody AssetsRequest request){
-        if(service.update(id,request)){
+       String result = service.update(id,request);
+        if(result.equals("OK")){
             return ResponseEntity.status(HttpStatus.OK)
                     .body(new MessageResponse("successful data update"));
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new MessageResponse("unexpected error"));
+                .body(new MessageResponse(result));
     }
 }

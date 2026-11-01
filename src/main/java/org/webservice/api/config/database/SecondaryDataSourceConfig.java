@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 )
 public class SecondaryDataSourceConfig {
     @Bean
-    @ConfigurationProperties(prefix = "app.datasource.second")
+    @ConfigurationProperties(prefix = "spring.datasource.second")
     public DataSourceProperties secondaryDataSourceProperties() {
         return new DataSourceProperties();
     }
