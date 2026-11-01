@@ -123,7 +123,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/maintenance").hasAuthority("update_content")
 
                         /////////CSV FILES/////////
-                        .requestMatchers(HttpMethod.POST,"/csv/upload-game","/csv/save-game","/csv/upload-asset")
+                        .requestMatchers(HttpMethod.POST,"/csv/upload-game","/csv/save-game","/csv/upload-asset", "/save-asset")
                         .hasAuthority("update_content")
 
                         .anyRequest().authenticated()

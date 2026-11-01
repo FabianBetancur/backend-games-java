@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.webservice.api.domain.core.GamesDto;
 import org.webservice.api.domain.dto.db2.AssetsRequest;
 import org.webservice.api.domain.services.CsvService;
+import org.webservice.api.domain.services.servicesdb2.AssetsService;
 import org.webservice.api.web.exceptions.MessageResponse;
 
 
@@ -29,6 +30,7 @@ import java.util.Objects;
 public class CsvControllerPost {
     private final Log LOGGER = LogFactory.getLog(CsvControllerPost.class);
     private final CsvService csvService;
+    private final AssetsService assetsService;
 
     @Operation(summary = "Process csv file", description = "csv file")
     @ApiResponses(value = {
@@ -107,5 +109,45 @@ public class CsvControllerPost {
     public ResponseEntity<?> assetCsv(@RequestPart("file") MultipartFile file){
         List<AssetsRequest> result = csvService.processCsvAsset(file);
         return ResponseEntity.ok(result);
+    }
+
+    @Operation(summary = "Process and save csv asset file", description = "save csv file")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "process ok",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "bad request",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class)))
+    })
+    @PostMapping(value = "/save-asset", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> saveAssetList(@RequestPart("file") MultipartFile file){
+        try {
+            if (file.isEmpty()) {
+                return ResponseEntity.badRequest()
+                        .body(new MessageResponse("file is empty"));
+            }
+
+            if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".csv")) {
+                return ResponseEntity.badRequest()
+                        .body(new MessageResponse("file must be csv"));
+            }
+
+            String result = csvService.saveAssetList(csvService.processCsvAsset(file));
+            if(result.equals("OK")){
+                return ResponseEntity.ok(new MessageResponse("saved csv asset list data!"));
+            } else {
+                return ResponseEntity.badRequest().body(new MessageResponse(result));
+            }
+        } catch (Exception ex){
+            return ResponseEntity.badRequest()
+                    .body(new MessageResponse(ex.getMessage()));
+        }
     }
 }

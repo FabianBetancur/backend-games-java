@@ -7,17 +7,21 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.webservice.api.domain.core.GamesDto;
 import org.webservice.api.domain.dto.db2.AssetsRequest;
 import org.webservice.api.domain.services.core.GameService;
+import org.webservice.api.domain.services.servicesdb2.AssetsService;
 import org.webservice.api.web.exceptions.CsvProcessingException;
+import org.webservice.api.web.exceptions.MessageResponse;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +31,7 @@ import java.util.Optional;
 public class CsvService {
     private final Log LOGGER = LogFactory.getLog(CsvService.class);
     private final GameService gameService;
+    private final AssetsService assetsService;
 
     public MultipartFile validateCsv(MultipartFile file){
         LOGGER.info("file name: {"+ file.getOriginalFilename() +"}");
@@ -52,7 +57,7 @@ public class CsvService {
             list.forEach(asset -> {
                 if(asset.getMonitorId() == 0) asset.setMonitorId(null);
             });
-            LOGGER.info("processing completed");
+            LOGGER.info("processing file completed!");
             return list;
         } catch (IOException ex) {
             LOGGER.error("io error while reading file", ex);
@@ -81,6 +86,18 @@ public class CsvService {
     public void saveList(List<GamesDto> listGames){
         listGames.forEach(gameService::save);
         LOGGER.info("saved data from csv");
+    }
+
+    public String saveAssetList(List<AssetsRequest> list){
+        try {
+            LOGGER.info("saving data from csv...");
+            list.forEach(assetsService::save);
+            return "OK";
+        } catch (Exception ex){
+            LOGGER.error("runtime error: " + ex.getMessage());
+            return ex.getMessage();
+        }
+
     }
 }
 
